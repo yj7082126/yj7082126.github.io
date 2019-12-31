@@ -1,3 +1,4 @@
-theme: jekyll-theme-minimal
+remote_theme: "mmistakes/minimal-mistakes@4.17.2"
 title: Patrick Kwon's blog
-logo: patrick
+plugins: 
+  - jekyll-include-cache
