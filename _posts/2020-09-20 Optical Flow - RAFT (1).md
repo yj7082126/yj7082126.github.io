@@ -61,8 +61,9 @@ categories:
 	* 1/8 사이즈로 생산된 optical flow를 $\mathbb{R}^{H/8 \times W/8 \times (8 * 8 *9 )}$ 짜리 마스크를 생산, weighted combination을 통해서 upsampling 시킨다.
 
 ### 참고문헌
-https://arxiv.org/abs/2003.12039
+* [RAFT: Recurrent All-Pairs Field Transforms for
+Optical Flow](https://arxiv.org/abs/2003.12039)
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMDg4MzMxMTddfQ==
+eyJoaXN0b3J5IjpbMTY5NDE4ODgxMF19
 -->
