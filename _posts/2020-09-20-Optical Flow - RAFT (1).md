@@ -4,11 +4,11 @@ date: 2020-09-20T13:26:00-04:00
 categories:
   - blog
 tags:
-  - machine learning
   - computer vision
-  - deepfake
+  - optical flow
 ---
 
+[업데이트 중]
 ## RAFT?
 * Optical Flow Optimization 을 위한 Deep Learning model.
 	* KITTI, Sintel 같은 dataset 대상 published model 기준 최고 accuracy
@@ -64,5 +64,5 @@ tags:
 Optical Flow](https://arxiv.org/abs/2003.12039)
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzUxNzc5Nzk4XX0=
+eyJoaXN0b3J5IjpbMTgxMDE0MDU5NV19
 -->
