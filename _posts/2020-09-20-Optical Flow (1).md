@@ -18,7 +18,7 @@ categories:
 * Definition : Optical Flow is a vector map, describing the pixel motion between two consecutive frames.
 	* For visualization, usually a HSV Color map is used, color for direction and saturation for magnitude.
 
-### How to calculate it?
+### How to calculate it? Optical Flow Constratin
 * Optical Flow Constraint: The value of two pixels, connected by a flow vector, should be equal.
 	* $I (x, y, t)$ : Pixel value of pixel at location (x, y) of frame t
 	* $( u, v)$ : 2 dimensional Flow Vector
@@ -28,5 +28,5 @@ categories:
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzQxMTMwMjgzXX0=
+eyJoaXN0b3J5IjpbLTc0NzA3MjA0XX0=
 -->
