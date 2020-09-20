@@ -10,16 +10,16 @@ categories:
 
 ----------
 
-### What is RAFT?
+## RAFT?
 * Optical Flow Optimization 을 위한 Deep Learning model.
 	* KITTI, Sintel 같은 dataset 대상 published model 기준 최고 accuracy
 	* Synthetic data 만 가지고도 타 dataset에 높은 정확성을 보이는 강한 generalization
 	* 타 모델 대비 1/10 iteration 으로도 훈련이 가능하며, 빠른 inference를 보여줌
 
-* 구조 
-	* 1. Feature Encoder : (downsample 된 이미지) pixel 당 feature vector를 계산
-	* 2. Correlation Layer : pixel pair 당 correlation 을 계산, avg. pooling 으로 coarse correlation 도 계산
-	* 3. Update Operator : 제로에서 시작된 flow field를 correlation을 input으로 받아 꾸준히 업데이트 및 refine.
+### Architecture
+* 1. Feature Encoder : (downsample 된 이미지) pixel 당 feature vector를 계산
+* 2. Correlation Layer : pixel pair 당 correlation 을 계산, avg. pooling 으로 coarse correlation 도 계산
+* 	3. Update Operator : 제로에서 시작된 flow field를 correlation을 input으로 받아 꾸준히 업데이트 및 refine.
 
 ### 1. Feature Encoder
 
@@ -65,5 +65,5 @@ categories:
 Optical Flow](https://arxiv.org/abs/2003.12039)
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY5NDE4ODgxMF19
+eyJoaXN0b3J5IjpbMTA2MDI0NDQ5M119
 -->
