@@ -15,9 +15,10 @@ categories:
 
 ## What is Optical Flow?
 
+* Definition : Optical Flow = 
 
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ5MzE4MzkwNV19
+eyJoaXN0b3J5IjpbLTQ1MTI1MzYwMV19
 -->
