@@ -15,10 +15,13 @@ categories:
 
 ## What is Optical Flow?
 
-* Definition : Optical Flow = 
+* Definition : Optical Flow is a vector map, describing the pixel motion between two consecutive frames.
+	* For visualization, usually a HSV Color map is used, color for direction and saturation for magnitude.
+
+### How to calc
 
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ1MTI1MzYwMV19
+eyJoaXN0b3J5IjpbMjA0MjkzNjE2OV19
 -->
