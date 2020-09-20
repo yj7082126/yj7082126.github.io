@@ -27,9 +27,21 @@ categories:
 	* Limitation : due to the usage of the First-order Taylor Approximation, the following equation might be suitable for small displacements, but not for large.
 * The Optical Flow Constraint is Underdetermined, and due to issues like Aperture Problem, additional constraints are needed to estimate the flow.
 
-###
+### Estimation : Lucas-Kanade
+* $min_{u,v} \{ \Sigma_{(x', y') \in N^{2}} (I_t(x' , y') + I_x(x')u + I_y(y')v)^{2} \}$
+	* $I^{1}_t + I^{1}_xu + I^{1}_yv = 0$
+	* $...$
+	* $I^{n}_t + I^{n}_xu + I^{n}_yv = 0$
 
+### Estimation : Variational Method
+
+* $\int_{\Omega} (|\nabla u|^2 + |\nabla v|^2) + (\lambda|I_t + I_xu + I_yv|^2) d\Omega$
+
+* $min_{u,v,u',v'} \{ \int_{\Omega} (|\nabla u| + |\nabla v|) + (\frac{1}{2\theta}(u-u')^2 + \frac{1}{2\theta}(v-v')^2) + (\lambda|I_t + I_xu' + I_yv'|) d\Omega \}$
+	* $min_{u',v'} \{ \int_{\Omega} (\frac{1}{2\theta}(u-u')^2 + \frac{1}{2\theta}(v-v')^2) + (\lambda|I_t + I_xu' + I_yv'|) d\Omega \}$ (w/ u & v fixed)
+	* $min_{u,v} \{ \int_{\Omega} (|\nabla u| + |\nabla v|) +(\frac{1}{2\theta}(u-u')^2 + \frac{1}{2\theta}(v-v')^2) d\Omega \}$
+ (w/ u' & v' fixed)
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMzY5ODg5NjZdfQ==
+eyJoaXN0b3J5IjpbNzMwNjE1NjY4XX0=
 -->
