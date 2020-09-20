@@ -1,14 +1,13 @@
-
+---
 title: “RAFT : Recurrent All-Pairs Field Transforms for Optical Flow”  
 date: 2020-09-20T13:26:00-04:00  
 categories:
-
--   blog  
-    tags:
--   computer vision
--   optical flow
-
-----------
+  - blog
+tags:
+  - machine learning
+  - computer vision
+  - deepfake
+---
 
 ## RAFT?
 * Optical Flow Optimization 을 위한 Deep Learning model.
@@ -65,5 +64,5 @@ categories:
 Optical Flow](https://arxiv.org/abs/2003.12039)
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA2MDI0NDQ5M119
+eyJoaXN0b3J5IjpbNzUxNzc5Nzk4XX0=
 -->
