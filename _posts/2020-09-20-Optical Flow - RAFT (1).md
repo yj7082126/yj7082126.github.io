@@ -1,0 +1,68 @@
+---
+title: “RAFT : Recurrent All-Pairs Field Transforms for Optical Flow”  
+date: 2020-09-20T13:26:00-04:00  
+categories:
+  - blog
+tags:
+  - machine learning
+  - computer vision
+  - deepfake
+---
+
+## RAFT?
+* Optical Flow Optimization 을 위한 Deep Learning model.
+	* KITTI, Sintel 같은 dataset 대상 published model 기준 최고 accuracy
+	* Synthetic data 만 가지고도 타 dataset에 높은 정확성을 보이는 강한 generalization
+	* 타 모델 대비 1/10 iteration 으로도 훈련이 가능하며, 빠른 inference를 보여줌
+
+### Architecture
+* 1. Feature Encoder : (downsample 된 이미지) pixel 당 feature vector를 계산
+* 2. Correlation Layer : pixel pair 당 correlation 을 계산, avg. pooling 으로 coarse correlation 도 계산
+* 	3. Update Operator : 제로에서 시작된 flow field를 correlation을 input으로 받아 꾸준히 업데이트 및 refine.
+
+### 1. Feature Encoder
+
+* Feature Encoder network : 이미지1 와 이미지2에 둘다 적용, downscale image의 픽셀당 feature map을 출력한다.
+
+    * $g_\theta : \mathbb{R}^{H \times W \times 3} \rightarrow \mathbb{R}^{H/8 \times W/8 \times 256}$
+    
+* Context Encoder Network : 이미지1에만 적용, Feature Encoder와 구조 동일
+    * $h_\theta : \mathbb{R}^{H \times W \times 3} \rightarrow \mathbb{R}^{H/8 \times W/8 \times 256}$
+    * net : $h_\theta$ 절반에 tanh 적용, initial hidden state로 사용된다.
+	* inp : $h_\theta$  절반에 relu 적용, input의 절반을 구성한다.
+	* Update operator에 사용하면서 spatial info가 motion boundary 안에 aggregate되도록 한다.
+
+### 2. Correlation Layer
+
+* Correlation layer :  4D $W \times H \times W \times H$ correlation volume 을 각 feature vector의 Inner product로 구성.
+
+    * $C(g_\theta(I_1), g_\theta(I_2)) \in R^{H \times W \times H \times W}$
+    * $C_{ijkl} = \Sigma_h g_\theta(I_1)_{ijh} \cdot g_\theta(I_2)_{klh}$
+* Correlation Volume의 마지막 2 dimension에 대하여 average pooling을 실시, Correlation pyramid를 구성
+    * $\{C^1, C^2, C^3, C^4\}$
+        * $C^k \in \mathbb{R}^{H \times W \times H/2^k \times W/2^k}$
+* Lookup operator: Correlation Volume에서 optical flow에 해당하는 위치 주변부를 bilinear sampling을 통해 추출한다.
+    * Given curr. estimated optical flow $(f^1, f^2)$, map pixel $x = (u, v) \in I_1$ to $x' = (u + f^1(u), v + f^2(v)) \in I_2$
+
+### 3. Update Operator
+* 기존의 optimization algorithm들 과의 유사성을 위해, Correlation Pyramid의 depth 와 무관하게 weight들을 묶으며, relu 등을 통해 convergence를 강하게 유도한다.
+* Input : 
+	* $x_t$ : Encode 된 Previous Flow + Encode 된 correlation lookup + context network 결과물 (inp)
+	* $h_{t-1}$ : Previous hidden state ($h_0$ : net)
+* GRU 계산: Fully Connected 대신 convolution을 사용한다
+	* (Horizontal 계산 후 Vertical 계산)
+	* $z_t = \sigma(Conv_{3\times3}([h_{t-1}, x_{t}], W_z))$
+	* $r_t = \sigma(Conv_{3\times3}([h_{t-1}, x_{t}], W_r))$
+	* $\tilde{h_t} = tanh(Conv_{3\times3}([r_{t} \odot h_{t-1}, x_{t}], W_h))$
+	* $h_t = (1-z_t) \odot h_{t-1} + z_t \odot \tilde{h_t}$
+	* 이후 $h_t$ 에 2개의 convolution layer를 적용, $\Delta f$를 계산한다.
+* Refinement (Upsampling)
+	* 1/8 사이즈로 생산된 optical flow를 $\mathbb{R}^{H/8 \times W/8 \times (8 * 8 *9 )}$ 짜리 마스크를 생산, weighted combination을 통해서 upsampling 시킨다.
+
+### 참고문헌
+* [RAFT: Recurrent All-Pairs Field Transforms for
+Optical Flow](https://arxiv.org/abs/2003.12039)
+> Written with [StackEdit](https://stackedit.io/).
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbNzUxNzc5Nzk4XX0=
+-->
