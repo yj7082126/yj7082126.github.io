@@ -24,9 +24,9 @@ categories:
 	* $( u, v)$ : 2 dimensional Flow Vector
 	* $I (x, y, t) = I(x + u, y + v, t + 1) \\= I(x, y, t+1) + \frac{dI}{dx}u + \frac{dI}{dy}v$ (First-order Taylor Approximation)
 	* $I_t + I_xu + I_yv = 0$
-	* First-order Taylor Approximation 을 사용했기 때문에, 작은 움직임 (short displacement) 에는 적합할지 몰라도, 큰 움직임 (large displacement) 에는 적합하지 못하다.
+	* Limitation : due to the usage of the First-order Taylor Approximation, the following equation might be suitable for small displacements, but not for large.
 
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU3NTM1ODk2NV19
+eyJoaXN0b3J5IjpbMzQxMTMwMjgzXX0=
 -->
