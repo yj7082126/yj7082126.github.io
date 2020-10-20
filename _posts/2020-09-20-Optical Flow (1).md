@@ -1,5 +1,5 @@
 ---
-title: “Optical Flow (1)”  
+title: Optical Flow (1)
 date: 2020-09-20T13:26:00-04:00  
 categories:
 -   blog  
@@ -41,5 +41,5 @@ tags:
  (w/ u' & v' fixed)
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExOTAzOTgyMzBdfQ==
+eyJoaXN0b3J5IjpbMTc1OTQxOTI5NSwtMTE5MDM5ODIzMF19
 -->
