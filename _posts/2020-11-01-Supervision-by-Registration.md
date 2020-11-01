@@ -1,0 +1,21 @@
+
+---
+title: Supervision-by-Registration : 얼굴 랜드마크 측정 방식의 Unsupervised 개선방안
+date: 2020-11-01T14:09:00-04:00  
+categories:
+-   blog  
+tags:
+-   computer vision
+-   facial landmark
+---
+# StyleGAN2 : Analyzing and Improving the Image Quality of StyleGAN
+
+-   제목 : Analyzing and Improving the Image Quality of StyleGAN
+-   아카이브 ID :  [1912.04958](https://arxiv.org/pdf/1912.04958.pdf)
+-   깃허브 코드 : 
+-   저자 :  T.Karras, S.Laine, J.Lehtinen 등
+-   발표 년도 : 2019
+> Written with [StackEdit](https://stackedit.io/).
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTEyNDYxMDg0OF19
+-->
