@@ -8,14 +8,14 @@ tags:
 -   computer vision
 -   facial landmark
 ---
-# StyleGAN2 : Analyzing and Improving the Image Quality of StyleGAN
+# Supervision-by-Registration: An Unsupervised Approach to Improve the Precision of Facial Landmark Detectors
 
--   제목 : Analyzing and Improving the Image Quality of StyleGAN
--   아카이브 ID :  [1912.04958](https://arxiv.org/pdf/1912.04958.pdf)
+-   제목 : Supervision-by-Registration: An Unsupervised Approach to Improve the Precision of Facial Landmark Detectors
+-   아카이브 ID :  [1807.00966](https://arxiv.org/pdf/1807.00966.pdf)
 -   깃허브 코드 : 
 -   저자 :  T.Karras, S.Laine, J.Lehtinen 등
 -   발표 년도 : 2019
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNDYxMDg0OF19
+eyJoaXN0b3J5IjpbLTEyNzEzMTgyOTFdfQ==
 -->
