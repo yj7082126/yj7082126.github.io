@@ -1,25 +1,30 @@
 {
   "basics": {
-    "name": "Albert Einstein",
-    "label": "Scientist",
+    "name": "Patrick Kwon",
+    "label": "Deep learning researcher",
     "image": "",
-    "email": "albert@einstein.de",
-    "phone": "(912) 123-4567",
-    "url": "https://alshedivat.github.io/al-folio/",
-    "summary": "A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time",
+    "email": "yk2805@columbia.edu",
+    "phone": "+82 10-6337-6283",
+    "url": "https://yj7082126.github.io",
+    "summary": "Deep learning researcher at Naver Webtoon, focusing on 2D/3D generation problems.",
     "location": {
-      "address": "2712 Broadway St",
-      "postalCode": "CA 94115",
-      "city": "San Francisco",
-      "countryCode": "US",
-      "region": "California"
+      "address": "131, Bundangnaegok-ro, Bundang-gu",
+      "postalCode": "13529",
+      "city": "Seoungnam-si",
+      "countryCode": "KR",
+      "region": "Gyeonggi-do"
     },
     "profiles": [
       {
         "network": "Twitter",
-        "username": "AlbertEinstein",
-        "url": "https://twitter.com/AlbertEinstein"
-      }
+        "username": "Patrick920728",
+        "url": "https://twitter.com/Patrick920728"
+      },
+      {
+        "network": "Linkedin",
+        "username": "patrickkwon",
+        "url": "https://www.linkedin.com/in/patrickkwon/"
+      },
     ]
   },
   "work": [
@@ -63,7 +68,7 @@
   "skills": [],
   "languages": [
     {
-      "language": "German",
+      "language": "Korean",
       "fluency": "Native speaker"
     },
     {
