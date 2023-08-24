@@ -19,16 +19,17 @@
         - GPA 3.9/4.0
     - title: Bachelor of Arts
       institution: University of Virginia
-      year: 2015 ~ 2017 (Early Graudation)
+      year: 2015 ~ 2017
       description:
         - Statistics & Computer Science
         - GPA 3.8 / 4.0
+        - Two-year early graduation
 
 - title: Experience
   type: time_table
   contents:
-    - title: Professor of Theoretical Physics
-      institution: Institute for Advanced Study, Princeton University
+    - title: Deep learning researcher
+      institution: Naver Webtoon
       year: 1933 - 1955
       description:
         - Description 1.

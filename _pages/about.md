@@ -16,6 +16,4 @@ social: true  # includes social icons at the bottom of the page
 ---
  
 I am a deep learning researcher at Naver Webtoon. My main research goal is to solve 2D/3D generation problems with semantic control, based on deep
-learning techniques. My current research areas include DeepFake content generation and detection,
-diffusion-model based image generation, 3D human digitalization, and Augmented Reality
-programming.
+learning techniques. My prior research areas include 3D human digitalization, generative models, Deepfake detection, and VR/AR programming.
