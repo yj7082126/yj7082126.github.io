@@ -37,9 +37,10 @@
         - Researched and designed deep learning solutions focused on image generation and editing
         - title: Research projects
           contents:
-           - Chupa : Diffusion-based 3D Human Digitalization
-           - LPMM : Facial landmark based Talking-head model
-           - Sketch Simplification: 
+           - <b>Chupa:</b> Diffusion-based 3D Human Digitalization project (accepted to ICCV 2023 Oral)
+           - <b>LPMM:</b> Facial landmark based Talking-head model (accepted to CVPR 2023 AI4CC Workshop)
+           - <b>Sketch Simplification:</b> Translating rough sketch paintings into clean line for colorization
+           - <b>Interactive Colorization:</b> Interactive image translation of sketches to colorized images (accepted to CVPR 2022)
         - title: Programming projects
           contents:
             - AI Studio : An interactive, user-friendly system of training generative AI models & generating images.
