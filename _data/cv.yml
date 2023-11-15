@@ -61,6 +61,18 @@
            - <b>ARIOS:</b> Case study research on Augmented Reality-Assisted Intraoral Scanning
            - <b>Pally:</b> Project on improving social skills for autistic children using Microsoft Hololens and 5G Network.
 
+    - title: Data Scientist
+      institution: Emadri
+      year: 2019-2019
+      description: 
+        - Designed recommendation systems for recommending packing list items for travelers.
+
+    - title: Data Scientist
+      institution: Krafton Studios
+      year: 2017-2018
+      description: 
+        - Provided data-centered insight on game development.
+
 - title: Honors and Awards
   type: time_table
   contents:
@@ -70,6 +82,7 @@
     - year: 2017
       items: 
         - UVA Order of the Orange Stole
+        - UVA Dean's List
 
 - title: Academic Interests
   type: nested_list
