@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Deep learning researcher, <a href='https://webtoonscorp.com/'>Naver Webtoon</a>. <br /> <a href='assets/pdf/Patrick_CV.pdf'>[CV]</a>
+subtitle: <a href='assets/pdf/Patrick_CV.pdf'>[CV]</a> <a href='https://twitter.com/Patrick920728'>[Twitter]</a> <a href='https://www.linkedin.com/in/patrickkwon/'>[Linkedin]</a> <a href='https://scholar.google.com/citations?user=XRKA-DkAAAAJ&hl=ko'>[Google Scholar]</a> <a href='https://github.com/yj7082126'>[Github]</a>
 
 profile:
   align: right
@@ -15,5 +15,12 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
  
-I am a deep learning researcher at Naver Webtoon. My main research goal is to solve 2D/3D generation problems with semantic control, based on deep
-learning techniques. My prior research areas include 3D human digitalization, generative models, Deepfake detection, and VR/AR programming.
+I am a full-time research scientist at [Naver Webtoon Corp.](https://webtoonscorp.com/en/) studying computer vision, graphics, and AI. 
+Previously, I received my Master's degree at [Columbia University](https://datascience.columbia.edu/) studying machine learning and human-computer interaction within augmented reality.
+Recently I have worked with Professor Hanbyul Joo and [SNU VCLab](https://jhugestar.github.io/) in solving 3D reconstruction and affordance problems.
+
+My main research goal is in embedding human prior knowledge within generative AI systems. 
+Specifically, I aspire to create AI systems that has a human level understanding towards visual context, which in turn will pave way for novel solutions in the field of computer vision.
+For instance, how can we aid video generation models to better understand human-object interaction? And how can we utilize such models in helping content creators and improving robotics systems?
+These are just few of the questions I hope to discover answers for.
+
