@@ -1,5 +1,6 @@
 
 ---
+layout: post
 title: Supervision-by-Registration : 얼굴 랜드마크 측정 방식의 Unsupervised 개선방안
 date: 2020-11-01T14:09:00-04:00  
 categories:

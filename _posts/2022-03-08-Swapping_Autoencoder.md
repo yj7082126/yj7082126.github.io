@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Swapping Autoencoder for Deep Image Manipulation
 date: 2022-03-07T09:10:00-04:00  
 categories:

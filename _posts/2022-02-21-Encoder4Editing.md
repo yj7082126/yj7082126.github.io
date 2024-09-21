@@ -1,4 +1,5 @@
 ---
+layout: post
 title: E4E - Encoder for StyleGAN Image Manipulation
 date: 2022-02-20T15:10:00-04:00  
 categories:
