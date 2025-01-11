@@ -1,9 +1,11 @@
 ---
 layout: post
-title: '[Paper Review] Birth and Death of a Rose'
+title: 'Birth and Death of a Rose'
 date: 2025-01-10T09:10:00-04:00  
 categories: blog  
-tags: 3D Object Generation
+tags: 
+- 3D Generation
+- 4D Generation
 ---
 
 ## Birth and Death of a Rose

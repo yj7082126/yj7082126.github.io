@@ -1,9 +1,10 @@
 ---
 layout: post
-title: '[Paper Review] LT3SD : Latent Trees for 3D Scene Diffusion'
+title: 'LT3SD : Latent Trees for 3D Scene Diffusion'
 date: 2024-09-20T09:10:00-04:00  
 categories: blog  
-tags: 3D Scene Generation
+tags: 
+- Scene Generation
 ---
 
 ## LT3SD : Latent Trees for 3D Scene Diffusion
