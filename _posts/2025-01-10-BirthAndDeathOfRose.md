@@ -8,12 +8,6 @@ tags: 3D Object Generation
 
 ## Birth and Death of a Rose
 
-![image.png](Birth%20and%20Death%20of%20a%20Rose%208ab1839b1cca4bd980992e106e0829c2/image.png)
-
-![image.png](Birth%20and%20Death%20of%20a%20Rose%208ab1839b1cca4bd980992e106e0829c2/image%201.png)
-
-![image.png](Birth%20and%20Death%20of%20a%20Rose%208ab1839b1cca4bd980992e106e0829c2/image%202.png)
-
 | Name | Birth and Death of a Rose |
 | --- | --- |
 | Authors | Chen Geng, Yunzhi Zhang, Shangzhe Wu, Jiajun Wu |
@@ -21,6 +15,12 @@ tags: 3D Object Generation
 | Conference | arxiv (2412.05278) |
 | Links | [[ArXiV]](https://arxiv.org/abs/2412.05278) [[Project]](https://chen-geng.com/rose4d)  |
 | Tl;dr | 4D Reconstruction 계열 논문. 장미가 피고 지는것처럼 사물의 모양이나 색깔등이 시간에 따라 변하는걸 Temporal Object Intrinsic 으로 정의, 이를 DINOv2 feature map 의 형태를 띈 Neural State Map 의 형태로 구현한다. 카메라 각도와 시간 입력을 받아 Neural State Map 을 출력하는 Neural Template 을 배우고, 이 모델을 바탕으로 SDS를 실행, 시간에 따라 변하는 3D 모델을 만든다 |
+
+![image.png](/assets/img/20250110/image.png)
+
+![image.png](/assets/img/20250110/image%201.png)
+
+![image.png](/assets/img/20250110/image%202.png)
 
 ## 정리
 
@@ -51,10 +51,13 @@ tags: 3D Object Generation
 ### Citation
 
 ```
-@misc{meng2024lt3sdlatenttrees3d,
-	title={LT3SD: Latent Trees for 3D Scene Diffusion}, 
-	author={Quan Meng and Lei Li and Matthias Nießner and Angela Dai},
-	journal={arXiv preprint arXiv:2409.08215},
-	year={2024}
+@misc{geng2024birthdeathrose,
+      title={Birth and Death of a Rose}, 
+      author={Chen Geng and Yunzhi Zhang and Shangzhe Wu and Jiajun Wu},
+      year={2024},
+      eprint={2412.05278},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2412.05278}, 
 }
 ```
