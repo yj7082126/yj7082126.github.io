@@ -15,12 +15,9 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
  
-I am a full-time research scientist at [Naver Webtoon Corp.](https://webtoonscorp.com/en/) studying computer vision, graphics, and AI. 
-Previously, I received my Master's degree at [Columbia University](https://datascience.columbia.edu/) studying machine learning and human-computer interaction within augmented reality.
-Recently I have worked with Professor Hanbyul Joo and [SNU VCLab](https://jhugestar.github.io/) in solving 3D reconstruction and affordance problems.
+I am a first-year research assistant at the [Center for Research in Computer Vision, UCF](https://www.crcv.ucf.edu/), working with [Dr. Chen Chen](https://www.crcv.ucf.edu/chenchen/index.html). 
+Previously, I worked as a full-time research scientist at [Naver Webtoon Corp.](https://webtoonscorp.com/en/) studying computer vision, graphics, and AI. I have also worked with Professor Hanbyul Joo and [SNU VCLab](https://jhugestar.github.io/) in solving 3D reconstruction and affordance problems.
+I received my Master's degree at [Columbia University](https://datascience.columbia.edu/) studying machine learning and human-computer interaction within augmented reality.
 
-My main research goal is in embedding human prior knowledge within generative AI systems. 
-Specifically, I aspire to create AI systems that has a human level understanding towards visual context, which in turn will pave way for novel solutions in the field of computer vision.
-For instance, how can we aid video generation models to better understand human-object interaction? And how can we utilize such models in helping content creators and improving robotics systems?
+My main research goal is in embedding human prior knowledge within generative AI systems. Specifically, I aspire to create AI systems that has a human level understanding towards visual context, which in turn will pave way for novel solutions in the field of computer vision. For instance, how can we aid video generation models to better understand human-object interaction? And how can we utilize such models in helping content creators and improving robotics systems?
 These are just few of the questions I hope to discover answers for.
-
