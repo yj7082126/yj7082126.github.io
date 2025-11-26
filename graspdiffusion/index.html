@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Whole-body Hand-Obect interaction image generation from 3D guidance">
+  <meta name="keywords" content="GraspDiffusion, Human-Object-Interaction">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GraspDiffusion: Synthesizing Realistic Whole-body Hand-Object Interaction</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin: auto;
+    }
+
+    .image-grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px; /* Optional for rounded corners */
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <span class="icon"> <i class="fas fa-home"></i> </span>
+      </a>
+
+      <!-- <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">GraspDiffusion: Synthesizing Realistic Whole-body Hand-Object Interaction</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">Anonymous Authors</a></span>
+            <span class="author-block">
+          </div>
+
+          <div class="column has-text-centered">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/Figure1.png"
+        class="main-image"
+        alt="Interpolation end reference image.">
+      <h2 class="subtitle has-text-centered">
+        Given an object mesh and its relative position, GraspDiffusion is capable of generating a human-object interaction scene
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recent generative models can synthesize high-quality images 
+            but often fail to generate humans interacting with objects using their hands. 
+            This arises mostly from the model's misunderstanding of such interactions, 
+            and the hardships of synthesizing intricate regions of the human body. 
+            
+          </p>
+          <p>
+            In this paper, we propose <span class="graspdiffusion">GraspDiffusion</span>, 
+            a novel generative method that creates realistic scenes of human-object interaction. 
+            Given a 3D object mesh, GraspDiffusion first constructs life-like whole-body poses 
+            with control over the object's location relative to the human body. 
+            This is achieved by separately leveraging the generative priors for 3D body poses and hand poses, 
+            optimizing them into a joint grasping pose. 
+            The resulting pose guides the image synthesis to correctly reflect the intended interaction, 
+            allowing the creation of realistic and diverse human-object interaction scenes. 
+
+          </p>
+          <p>
+            We demonstrate that <span class="graspdiffusion">GraspDiffusion</span> can successfully tackle the relatively uninvestigated problem 
+            of generating full-bodied human-object interactions, while also outperforming previous methods.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Approach. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Approach</h2>
+        <div class="content has-text-justified">
+          <p>
+            Starting with a 3D object mesh 
+            and its position within the human-centric coordinate system (originating at the pelvis joint), 
+            <span class="graspdiffusion">GraspDiffusion</span> synthesizes realistic images portraying a human interacting with the object, 
+            with a significant portion of the human body visible.
+          </p>
+        </div>
+        <img src="./static/images/Figure3.png"
+          class="main-image"
+          alt="Interpolation end reference image.">
+        <br/>
+      </div>
+    </div>
+    <!-- Approach. -->
+
+    <div class="columns is-centered">
+      <!-- 3D Pipeline. -->
+      <div class="column">
+        <div class="content">
+          <h3 class="title is-4">Full-body Grasping</h2>
+          <p>
+            Compared to similar research, our method focuses on grabbing objects positioned on 
+            diverse locations relative to the human, capturing the wide range of possible grasping poses.
+            We separately generate the hand pose and the body pose, which are jointly optimized 
+            to create a full-bodied 3D human model grasping an object.
+          </p>
+          <img src="./static/images/Figure4.png"
+          class="main-image"
+          alt="Interpolation end reference image.">
+        </div>
+      </div>
+      <!--/ 3D Pipeline. -->
+
+      <!-- 2D Pipeline. -->
+      <div class="column">
+        <h3 class="title is-4">Scene Generation</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              From the generated 3D grasping pose, we extract multiple geometric poses that serves as guidance
+              for creating a detailed, realistic scene of a human interacting with the given object. We use a 
+              series of spatial encoders and an attention-injection scheme to correctly facilitate plausible interaction.
+            </p>
+            <img src="./static/images/Figure5-2.png"
+            class="main-image"
+            alt="Interpolation end reference image.">
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--/ 2D Pipeline. -->
+
+    <!-- Approach. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4">Datasets</h2>
+        <div class="content has-text-justified">
+          <p>
+            To address the shortage of realistic images paired with 3D annotation, 
+            we designed an annotation pipeline through which we leveraged previous interaction datasets
+            to function as a pseudo-3D interaction dataset.
+          </p>
+        </div>
+        <img src="./static/images/Figure6.png"
+          class="main-image"
+          alt="Interpolation end reference image.">
+        <br/>
+      </div>
+    </div>
+    <!-- Approach. -->
+
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Realistic interaction generation</h2>
+        <div class="content has-text-justified">
+          <p>
+            Only requiring minimal inputs (an object mesh model and its relative location), 
+            <span class="graspdiffusion">GraspDiffusion</span> can generate a wide-range of plausible 3D grasping poses 
+            and realistic human-object interaction images.
+          </p>
+          <video autoplay muted loop height="100%">
+            <source src="./static/videos/Figure9.mp4" type="video/mp4">
+          </video>
+          <img src="./static/images/Figure11.png"
+          class="main-image"
+          alt="Interpolation end reference image.">
+        <br/>
+        </div>   
+        <div class="content has-text-justified">
+          <p>
+            We compare generated human-object interaction images generated by different methods using the same input
+            object. While other methods display erroneous interactions (e.g. multiple objects,
+            object appearance distorted, color blending), 
+            our pipeline can correctly convey the intention of the human-object grasping pipeline.
+          </p>
+          <img src="./static/images/Figure8.png"
+          class="main-image"
+          alt="Interpolation end reference image.">
+        <br/>
+        </div> 
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4">Additional Samples</h2>
+          <div class="image-grid">
+            <img src="./static/images/axe_joint.png" alt="Image 1">
+            <img src="./static/images/baseballbat_joint.png" alt="Image 2">
+            <img src="./static/images/bowl_joint.png" alt="Image 3">
+            <img src="./static/images/coffee_joint.png" alt="Image 4">
+            <img src="./static/images/dagger_joint.png" alt="Image 5">
+            <img src="./static/images/mug_joint.png" alt="Image 6">
+            <img src="./static/images/mustard_joint.png" alt="Image 7">
+            <img src="./static/images/sword_joint.png" alt="Image 8">
+            <img src="./static/images/tomato_joint.png" alt="Image 9">
+            <img src="./static/images/wine_joint.png" alt="Image 10">
+            <img src="./static/images/spam_joint.png" alt="Image 9">
+            <img src="./static/images/banana_joint.png" alt="Image 10">
+          </div>
+
+
+        <br/>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+        <div class="column">
+        <div class="content">
+          <h3 class="title is-4">Initiated from Object Image</h2>
+          <img src="./static/images/Figure10.png"
+          class="main-image"
+          alt="Interpolation end reference image.">
+        </div>
+      </div>
+      <!--/ 3D Pipeline. -->
+
+      <!-- 2D Pipeline. -->
+      <div class="column">
+        <div class="content">
+          <h3 class="title is-4">Multiple Style Support</h2>
+            <img src="./static/images/Figure12.png"
+            class="main-image"
+            alt="Interpolation end reference image.">
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
