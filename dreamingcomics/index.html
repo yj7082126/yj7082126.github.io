@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>DreamingComics: Story Visualization with Layout-Controlled Video Models</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Project page for 'DreamingComics: A Story Visualization Pipeline via Subject and Layout Customized Generation using Video Models' – CVPR 2026 submission."
+  />
+
+  <!-- Google Font (optional) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f7f7f9;
+      --text: #222222;
+      --accent: #0066cc;
+      --accent-soft: #e6f0ff;
+      --border: #dddddd;
+      --max-width: 960px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: #ffffffcc;
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.95rem;
+    }
+
+    .nav-title {
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links a {
+      margin-left: 1rem;
+      font-weight: 400;
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 3rem;
+    }
+
+    /* Hero section */
+    .hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 3vw + 1rem, 2.8rem);
+      margin: 0 0 0.8rem;
+    }
+
+    .hero .venue {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #666;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero .tagline {
+      font-size: 0.98rem;
+      max-width: 720px;
+      margin: 0.3rem auto 1.1rem;
+      color: #444;
+    }
+
+    .authors {
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .authors a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+    }
+
+    .affiliations {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 1.25rem;
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .pill-link {
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .pill-link span.emoji {
+      font-size: 1rem;
+    }
+
+    .pill-link:hover {
+      background: var(--accent-soft);
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 2.75rem;
+    }
+
+    section h2 {
+      font-size: 1.5rem;
+      margin: 0 0 0.75rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.25rem;
+    }
+
+    /* Teaser */
+    .teaser {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .teaser img {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .teaser-caption {
+      font-size: 0.9rem;
+      color: #555;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    /* Abstract */
+    .abstract-box {
+      background: var(--bg-alt);
+      border-radius: 8px;
+      padding: 1.2rem 1.3rem;
+      font-size: 0.98rem;
+    }
+
+    .abstract-box p {
+      margin: 0 0 0.8rem;
+    }
+
+    .abstract-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Media row */
+    .media-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    .media-grid iframe,
+    .media-grid video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .media-note {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Methods */
+    .method-figure {
+      margin: 1.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .method-figure img {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .method-figure .fig-caption {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 0.4rem;
+    }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin: 1.8rem 0;
+    }
+
+    .method-grid img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .method-grid .fig-caption {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 0.3rem;
+      text-align: center;
+    }
+
+    @media (max-width: 720px) {
+      .method-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    /* Results */
+    /* Results: horizontal scroll galleries */
+    .result-section-block {
+      margin-bottom: 2rem;
+    }
+
+    .result-section-block h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Simple vertical gallery */
+    .simple-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;           /* space between rows */
+      margin-top: 1rem;
+    }
+
+    .simple-gallery img {
+      width: 100%;
+      border-radius: 8px;  /* optional */
+      border: 1px solid var(--border);   /* optional */
+    }
+
+    /* Scrollable container */
+    .result-gallery {
+      overflow-x: auto;
+      overflow-y: visible;
+      padding-bottom: 0.5rem;
+      cursor: grab;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Row of cards inside the scrollable area */
+    .result-gallery-row {
+      display: inline-flex;
+      gap: 1rem;
+      padding: 0.25rem 0.1rem 0.5rem;
+    }
+
+    /* While dragging */
+    .result-gallery.dragging {
+      cursor: grabbing;
+    }
+
+    /* Cards still look the same */
+    .result-card {
+      min-width: 240px;       /* key: fixed-ish width so horizontal scroll makes sense */
+      max-width: 280px;
+      flex: 0 0 auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      background: #fff;
+      font-size: 0.9rem;
+    }
+
+    .result-card img {
+      width: 100%;
+      display: block;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+    }
+
+    .result-card h3 {
+      margin: 0 0 0.2rem;
+      font-size: 0.98rem;
+    }
+
+    /* Auto-scrolling gallery (UNO-style) */
+    .auto-gallery-section {
+      margin-top: 2rem;
+    }
+
+    .auto-gallery-section h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .auto-gallery-section p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.8rem;
+    }
+
+    .auto-gallery {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 0.75rem 0;        /* vertical breathing room */
+      margin-bottom: 2rem;
+    }
+
+    .auto-gallery-track {
+      display: inline-flex;
+      gap: 0.75rem;
+      align-items: center;
+      animation: gallery-scroll 40s linear infinite;
+      will-change: transform;
+    }
+
+    /* Pause on hover (optional, nice for inspection) */
+    .auto-gallery:hover .auto-gallery-track {
+      animation-play-state: paused;
+    }
+
+    /* Adjust height as you like */
+    .auto-gallery-track img {
+      max-height: 480px;             /* or use max-height / width if you prefer */
+      flex-shrink: 0;
+    }
+
+    /* Keyframes: move by 50% since we duplicate the sequence once */
+    @keyframes gallery-scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* On mobile you might want slightly smaller images */
+    @media (max-width: 720px) {
+      .auto-gallery-track img {
+        height: 110px;
+      }
+    }
+
+
+    /* BibTeX */
+    pre.bibtex {
+      background: #111111;
+      color: #f0f0f0;
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 1.25rem 2rem;
+      font-size: 0.8rem;
+      background: var(--bg-alt);
+    }
+
+    footer .inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      color: #666;
+    }
+
+    @media (max-width: 720px) {
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top nav -->
+  <header>
+    <div class="nav">
+      <div class="nav-title">DreamingComics</div>
+      <div class="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <!-- <a href="#bibtex">BibTeX</a> -->
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="venue">CVPR 2026 • SUBMISSION</div>
+      <h1>DreamingComics: A Story Visualization Pipeline via Subject and Layout Customized Generation using Video Models</h1>
+
+      <p class="tagline">
+        A layout-aware story visualization framework that turns text scripts and reference characters into comic-style narratives
+        with controllable layouts, consistent identities, and diverse artistic styles.
+      </p>
+
+      <div class="authors">
+        <!-- Replace with real authors -->
+        <a href="#" target="_blank" rel="noopener">Patrick Kwon</a>,
+        <a href="#" target="_blank" rel="noopener">Chen Chen</a>,
+      </div>
+
+      <div class="affiliations">
+        University of Central Florida
+      </div>
+
+      <!-- <div class="link-row">
+        <a class="pill-link" href="PAPER_LINK.pdf" target="_blank">
+          <span class="emoji">📄</span>
+          <span>Paper (PDF)</span>
+        </a>
+        <a class="pill-link" href="VIDEO_LINK" target="_blank">
+          <span class="emoji">🎬</span>
+          <span>Video</span>
+        </a>
+        <a class="pill-link" href="CODE_REPO_LINK" target="_blank">
+          <span class="emoji">💻</span>
+          <span>Code</span>
+        </a>
+        <a class="pill-link" href="#bibtex">
+          <span class="emoji">📚</span>
+          <span>BibTeX</span>
+        </a>
+      </div> -->
+    </section>
+
+    <!-- Teaser -->
+    <section id="teaser">
+      <h2>Teaser</h2>
+      <div class="teaser">
+        <!-- Replace teaser.png with your own image -->
+        <img src="./static/images/Figure1.png" alt="Teaser visualization of DreamingComics" />
+        <div class="teaser-caption">
+          DreamingComics decomposes story visualization into layout generation and layout-aware image customization.
+          Given a script and character references, our system predicts comic-style layouts with panel and character
+          boxes, then renders each panel based a video diffusion transformer adapted for image customization. This
+          enables multi-subject, layout-controlled comics across diverse styles such as pencil sketches, anime, line-art,
+          and live-action.
+        </div>
+      </div>
+    </section>
+
+    <!-- Abstract -->
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <div class="abstract-box">
+        <p>
+          Existing story visualization systems often rely on text-only control, which makes it difficult to decide
+          where multiple characters should appear and to keep their visual appearance consistent across panels.
+          DreamingComics addresses this by introducing a layout-aware framework that jointly reasons about subject
+          identity, spatial layout, and artistic style for comic-style stories.
+        </p>
+        <p>
+          We build on a pretrained video diffusion transformer and repurpose it for image customization, leveraging
+          its spatiotemporal priors to improve identity and style consistency across generated panels. To control
+          spatial layout, we introduce <em>RegionalRoPE</em>, a region-aware rotary position embedding that re-indexes
+          reference tokens according to target bounding boxes, and a <em>masked condition loss</em> that penalizes
+          attention that leaks outside the designated regions. Complementing this, an LLM-based layout generator
+          is fine-tuned on comic layout data to predict panel and character boxes directly from textual scripts,
+          reducing the need for manual layout design.
+        </p>
+        <p>
+          On benchmarks such as ViStoryBench and DreamBench++, DreamingComics improves character consistency and
+          style similarity over prior story visualization and image customization methods, while maintaining high
+          spatial accuracy.
+        </p>
+      </div>
+    </section>
+
+    <!-- Media -->
+    <section id="media">
+      <h2>Video Overview</h2>
+      <div class="media-grid">
+        <!-- Replace with your YouTube or HTML5 video -->
+        <iframe
+          src="./static/videos/DreamingComics_demovideo.mp4"
+          title="DreamingComics project video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+
+    <!-- Method / Overview -->
+    <section id="method">
+      <h2>Method</h2>
+      <p>
+        DreamingComics targets comic-style story visualization, where each page consists of multiple panels with
+        characters arranged in spatially meaningful compositions. Instead of treating a story as a simple sequence
+        of equally sized frames, we adopt a comic-centric representation where each panel is described by its text,
+        its bounding box, and a set of character-level bounding boxes. This lets us reason both
+        about how panels occupy the page and how subjects are positioned within each panel. We then divide the task 
+        into two modules: an LLM-based layout generator and a layout-aware customization model, Dream-Illustrator.
+      </p>
+
+      <div class="method-figure">
+        <img src="./static/images/Figure2.png" alt="Layout Generator overview diagram" 
+          width="60%">
+        <p class="fig-caption-1">
+        </p>
+      </div>
+
+      <h3>LLM-based Layout Generator</h3>
+      <p>
+        Given a script split into panel-level descriptions, our layout generator predicts structured layouts of panel
+        regions and character bounding boxes. We fine-tune a multimodal LLM on curated comic data, using supervised
+        learning to map text to normalized panel and character boxes. The model learns comic-specific layout patterns
+        such as reading order, reasonable panel coverage, and plausible character sizes and positions. At inference
+        time, users simply provide captions, and the layout generator outputs panel-wise layouts that
+        can be passed directly to the image customization stage.
+      </p>
+
+      <div class="method-figure">
+        <img src="./static/images/Figure3.png" alt="Image Customization overview diagram" 
+          width="90%">
+        <p class="fig-caption-2">
+        </p>
+      </div>
+
+      <h3>Dream-Illustrator: Video-Model-Based Image Customization</h3>
+      <p>
+        For image generation, we introduce <strong>Dream-Illustrator</strong>, an image customization model built on
+        top of a video diffusion transformer (HunyuanVideo-I2V with FramePack). We treat the reference character
+        images as the first "frame(s)" and generate a target panel image as a subsequent frame, so the model can
+        exploit cross-frame context and spatiotemporal priors to maintain identity and style. Reference images are
+        encoded into latent tokens and concatenated with noisy latent tokens for the target image and text tokens
+        from the script.
+      </p>
+
+      <!-- <div class="method-grid">
+        <div>
+          <img src="./static/images/Figure4.png" alt="RegionalRoPE concept">
+          <p class="fig-caption">RegionalRoPE re-indexes positional coordinates inside bounding boxes.</p>
+        </div>
+
+        <div>
+          <img src="./static/images/Figure5.png" alt="Masked condition loss">
+          <p class="fig-caption">Masked condition loss penalizes cross-attention leakage outside character regions.</p>
+        </div>
+      </div> -->
+      <div class="method-figure">
+        <img src="./static/images/Figure4.png" alt="RegionalRoPE concept and Masked Condition Loss overview" 
+          width="90%">
+        <p class="fig-caption-2">
+        </p>
+      </div>
+
+      <h3>RegionalRoPE and Masked Condition Loss</h3>
+      <p>
+        Standard 3D rotary position embeddings assign the same origin to all references, which leads to entangled
+        spatial cues, making precise layout control difficult. RegionalRoPE instead maps each reference latent to
+        its target bounding box by re-indexing the positional coordinates according to the layout. This gives the
+        model explicit spatial grounding, allowing it to associate each subject with a specific region in the panel
+        while preserving its aspect ratio.
+      </p>
+      <p>
+        To further encourage the model to respect layout constraints, we introduce a masked condition loss that
+        operates on cross-attention maps between reference tokens and the generated image. For each subject, we
+        compute a binary mask from its bounding box and penalize attention mass that falls outside this region, reducing
+        identity bleeding issues and promoting a clean, layout-aligned character placement.
+      </p>
+
+      <h3>Layout- and Identity-Paired Training Data</h3>
+      <p>
+        Training Dream-Illustrator requires paired samples that include reference images, target images, and layout
+        conditions. We construct such data from structured video and animation datasets by sampling frame pairs for
+        each subject, extracting subject and panel boxes, and filtering by automatic quality scores. In parallel, we
+        build a comics layout dataset from multiple comic corpora, detecting panels and characters and generating
+        textual descriptions. These datasets allow us to jointly train the layout generator and the layout-aware
+        image customization model for story visualization.
+      </p>
+    </section>
+
+    <!-- Results -->
+    <section id="results">
+      <h2>Results</h2>
+
+      <!-- 1. Story Visualization Gallery -->
+      <div class="auto-gallery-section">
+        <h3>Story-Level Visualization</h3>
+        <p>
+          DreamingComics generates full comic pages with multiple panels while preserving
+          character identities, artistic styles, layouts, and caption semantics across an entire story.
+        </p>
+
+        <div class="auto-gallery">
+          <div class="auto-gallery-track">
+            <!-- Sequence of 8 images -->
+            <img src="./static/images/Figure5-8-min.png" alt="Strip sample 8">
+            <img src="./static/images/Figure5-1-min.png" alt="Strip sample 1">
+            <img src="./static/images/Figure5-2-min.png" alt="Strip sample 2">
+            <img src="./static/images/Figure5-3-min.png" alt="Strip sample 3">
+            <img src="./static/images/Figure5-4-min.png" alt="Strip sample 4">
+            <img src="./static/images/Figure5-5-min.png" alt="Strip sample 5">
+            <img src="./static/images/Figure5-6-min.png" alt="Strip sample 6">
+            <img src="./static/images/Figure5-7-min.png" alt="Strip sample 7">
+
+            <!-- Duplicate the same 8 images for seamless looping -->
+            <img src="./static/images/Figure5-8-min.png" alt="" aria-hidden="true">
+            <img src="./static/images/Figure5-1-min.png" alt="" aria-hidden="true">
+            <img src="./static/images/Figure5-2-min.png" alt="" aria-hidden="true">
+            <img src="./static/images/Figure5-3-min.png" alt="" aria-hidden="true">
+            <img src="./static/images/Figure5-4-min.png" alt="" aria-hidden="true">
+            <img src="./static/images/Figure5-5-min.png" alt="" aria-hidden="true">
+            <img src="./static/images/Figure5-6-min.png" alt="" aria-hidden="true">
+            <img src="./static/images/Figure5-7-min.png" alt="" aria-hidden="true">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Identity & Style Preservation Gallery -->
+      <div class="result-section-block">
+        <h3>Identity &amp; Style &amp; Layout Preservation</h3>
+        <p>
+          Here we visualize how Dream-Illustrator maintains subject identity and art style
+          across different characters and layouts, compared to prior state-of-the-art 
+          image customization methods, UNO and DreamO.
+        </p>
+
+        <div class="simple-gallery">
+          <img src="./static/images/Figure6.png" alt="Example 1">
+        </div>
+      </div>
+
+      <!-- 3. Layout Gallery -->
+      <div class="result-section-block">
+        <h3>Layout Generation</h3>
+        <p>
+          Here we visualize layouts from our LLM-based generator to demonstrate the plausibility
+          of our generated layouts. Given the same story but with different numbers of preceding panels, 
+          our layout generator maintains stable character positions while adapting flexibly to new contexts, 
+          indicating strong consistency along with controlled diversity.
+        </p>
+
+        <div class="auto-gallery">
+          <div class="auto-gallery-track">
+            <img src="./static/images/Figure7-1.png" alt="Example 1">
+            <img src="./static/images/Figure7-2.png" alt="Example 2">
+            <img src="./static/images/Figure7-3.png" alt="Example 3">
+            <img src="./static/images/Figure7-4.png" alt="Example 4">
+            <img src="./static/images/Figure7-1.png" alt="Example 1">
+            <img src="./static/images/Figure7-2.png" alt="Example 2">
+            <img src="./static/images/Figure7-3.png" alt="Example 3">
+            <img src="./static/images/Figure7-4.png" alt="Example 4">
+          </div>
+        </div>
+      </div>
+
+      <div class="result-section-block">
+        <h3>Story Level Comparison</h3>
+        <p>
+           We first generate layouts from the input panel-wise captions and use them along with the reference images and captions to synthesize 
+           a full-length comic-style story. Layout-based methods like DiffSensei and Eligen does not preserve the aesthetics of references, 
+           while image-based customization methods such as RealGeneral, UNO, and DreamO cannot utilize layout conditions, which creates confusion in placing characters. 
+           For instance, DreamO places the gray-colored "Domestic Donkey" on the right side and the brown-colored "Wild Donkey" on the left, 
+           which is not intended in its caption. In contrast, our method produces accurate and consistent story visualizations in terms of identity consistency, 
+           style preservation, prompt adherence, and layout composition.
+        </p>
+
+        <div class="simple-gallery">
+          <img src="./static/images/Figure8.png" alt="Example 1">
+        </div>
+      </div>
+
+    </section>
+
+    <!-- BibTeX -->
+    <!-- <section id="bibtex">
+      <h2>BibTeX</h2>
+      <pre class="bibtex">
+@inproceedings{dreamingcomics_cvpr2026,
+  title     = {DreamingComics: A Story Visualization Pipeline via Subject and Layout Customized Generation using Video Models},
+  author    = {Anonymous},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2026},
+  note      = {CVPR 2026 submission},
+}
+      </pre>
+    </section> -->
+
+    <!-- Acknowledgements -->
+    <section id="acknowledgements">
+      <h2>Acknowledgements</h2>
+      <p>
+        We acknowledge the creators and maintainers of the comic and video datasets used in this work and follow
+        their licenses and usage guidelines. We also thank collaborators and reviewers for their helpful feedback.
+      </p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="inner">
+      <div>
+        © 2025 • DreamingComics authors. Feel free to reuse and modify this
+        template for your own research projects.
+      </div>
+      <div style="margin-top:0.4rem;">
+        Template inspired by the
+        <a href="https://nerfies.github.io/" target="_blank" rel="noopener">
+          Nerfies project page
+        </a>
+        (Park et al., ICCV 2021), licensed under
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">
+          CC BY-SA 4.0
+        </a>.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
