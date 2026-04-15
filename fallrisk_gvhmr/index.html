@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Project page for Fall Risk and Gait Analysis in Community-Dwelling Older Adults using World-Spaced 3D Human Mesh Recovery.">
+  <meta name="keywords" content="fall risk, gait analysis, GVHMR, TUG, older adults, computer vision, human mesh recovery">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fall Risk and Gait Analysis in Community-Dwelling Older Adults using World-Spaced 3D Human Mesh Recovery</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#top">
+        <span class="icon">
+          <i class="fas fa-home"></i>
+        </span>
+      </a>
+      <a class="navbar-item" href="#abstract">Abstract</a>
+      <a class="navbar-item" href="#method">Method</a>
+      <a class="navbar-item" href="#results">Results</a>
+      <a class="navbar-item" href="#bibtex">BibTeX</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Fall Risk and Gait Analysis in Community-Dwelling Older Adults using World-Spaced 3D Human Mesh Recovery</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Chitra Banarjee<sup>1</sup>,</span>
+            <span class="author-block">Patrick Kwon<sup>2</sup>,</span>
+            <span class="author-block">Ania Lipat<sup>3</sup>,</span>
+            <span class="author-block">Rui Xie<sup>4</sup>,</span>
+            <span class="author-block">Chen Chen<sup>2</sup>,</span>
+            <span class="author-block">Ladda Thiamwong<sup>3</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>College of Medicine, UCF</span>
+            <span class="author-block"><sup>2</sup>Institute of AI, UCF</span>
+            <span class="author-block"><sup>3</sup>College of Nursing, UCF</span>
+            <span class="author-block"><sup>4</sup>College of Sciences, UCF</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2604.11961"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#abstract"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-scroll"></i>
+                  </span>
+                  <span>Abstract</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#results"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-chart-line"></i>
+                  </span>
+                  <span>Results</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/example-pipeline.png"
+           alt="Overview of the GVHMR-based fall risk and gait analysis pipeline.">
+      <h2 class="subtitle has-text-centered">
+        The overall pipeline of our study. Basing on the world trajectory extraction results from the TUG test using GVHMR, we analyze the gait factors and conduct statistical analysis.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <img src="./static/images/fig1-tub_setup.png"
+               alt="Timed Up and Go test setup.">
+        </div>
+        <div class="item">
+          <img src="./static/images/gvhmr_gait_trajectory_sample.png"
+               alt="GVHMR reconstruction in camera and world-centric views.">
+        </div>
+        <div class="item">
+          <img src="./static/images/step_detection_sample.png"
+               alt="Step detection from GVHMR joint trajectories.">
+        </div>
+        <div class="item">
+          <img src="./static/images/sts_signal.png"
+               alt="Signals used for TUG subtask segmentation.">
+        </div>
+        <div class="item">
+          <img src="./static/images/gait_fallrisk.png"
+               alt="Scatter plots relating gait measures and fall risk.">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Gait assessment is a key clinical indicator of fall risk and overall health in older adults. However, standard clinical practice is largely limited to stopwatch-measured gait speed. We present a pipeline that leverages a 3D Human Mesh Recovery (HMR) model to extract gait parameters from recordings of older adults completing the Timed Up and Go (TUG) test.
+          </p>
+          <p>
+            From videos recorded across different community centers, we extract and analyze spatiotemporal gait parameters, including step time, sit-to-stand duration, and step length. We found that video-derived step time was significantly correlated with IMU-based insole measurements.
+          </p>
+          <p>
+            Using linear mixed effects models, we confirmed that shorter, more variable step lengths and longer sit-to-stand durations were predicted by higher self-rated fall risk and fear of falling. These findings demonstrate that our pipeline can enable accessible and ecologically valid gait analysis in community settings.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Introduction</h2>
+          <p>
+            Movement is central to human interaction and well-being across the lifespan. Especially for older adults, movement is an indicator of overall health in the physical, mental, and cognitive domains. As such, gait evaluation is a key clinical measure for identifying older adults at risk for several physiological and pathological aging conditions, commonly used in primary care visits and geriatric assessments to screen participants at risk for frailty or falls.
+          </p>
+          <p>
+            However, clinical gait evaluation remains largely limited to stopwatch-measured gait speed, as comprehensive assessments are constrained by limited access to technology and specialized training. Although the biomechanical correlates of fall risk are well-established, existing methodologies, such as wearable inertial sensors, optoelectronic marker-based systems, and multi-camera markerless motion capture, require dedicated infrastructure and considerable technical training, restricting their deployment beyond controlled clinical or research settings.
+          </p>
+          <p>
+            To solve this, we present a novel computer vision-informed approach that evaluates 3D gait measures using a Human Mesh Recovery method, from a single monocular video camera that records the Timed Up and Go test for older adults. We leverage Ground View HMR as the foundation of our pipeline to recover full human body motion anchored in world coordinates.
+          </p>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Contributions</h2>
+          <ul>
+            <li>A gait acquisition protocol that uses a single camera to record older adults completing the TUG test across multiple community centers, only requiring limited clinical infrastructure and supervision.</li>
+            <li>A novel application of world-grounded 3D HMR to clinical gait analysis, leveraging GVHMR to reconstruct full-body trajectories and spatiotemporal gait parameters.</li>
+            <li>An automated pipeline extracting spatiotemporal parameters of gait and TUG transitions via signal processing and peak detection.</li>
+            <li>A correlation analysis comparing video-derived step time against insole measurements, and a linear mixed effects framework evaluating how fall risk factors predict spatiotemporal gait in community-dwelling older adults.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            Participants were instructed to complete the Timed Up and Go test three times. The trials were recorded using a conventional monocular video camera, GoPro Hero 12, set up approximately 280 cm from the 3-meter mark.
+          </p>
+          <p>
+            In addition to the video, we used the wearable XSENSOR insole system. These sensors served as a comparative reference for evaluating the video-derived gait measures. Participants were also given questionnaires to evaluate subjective fall risk factors and a postural sway assessment to quantify balance.
+          </p>
+          <p>
+            Each TUG video is processed through GVHMR, which recovers human pose separately for camera-space and world-space. Here, we mainly focus on the world-space trajectory information. The gait parameters are then derived from the 3D joint positions regressed from the SMPL-X kinematic model in world space.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/fig1-tub_setup.png"
+               alt="Timed Up and Go setup."
+               width="70%">
+          <p class="has-text-centered">Schematic of Timed Up and Go (TUG) test set up.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Data Collection</h2>
+          <p>
+            The final sample included 207 video recordings of the vTUG from 52 older adults, after removing participants without 3 valid trials. Of those 207 trials, 30 assessments with 90 trials contained simultaneously collected iTUG.
+          </p>
+          <p>
+            The sample consisted of community-dwelling older adults. Participants were recruited within Orlando, Florida using various strategies, including flyers, word-of-mouth, and collaboration with community partners.
+          </p>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Gait Analysis</h2>
+          <p>
+            Using the world-space joint trajectories recovered by GVHMR, we derive a set of spatiotemporal gait parameters that characterize participants' mobility during the TUG test. These include temporal and spatial gait measures, and transition durations between subtasks such as sit-to-stand and turning.
+          </p>
+          <p>
+            Prior to analysis, we reduce high-frequency noise by applying Gaussian smoothing to each time series of 3D body keypoints from video data and to the wearable sensor signals. Step time was calculated using GVHMR joint positions, while step length and step width were extracted by detecting local minima of the ankle joint positions to identify steps.
+          </p>
+          <p>
+            Peak detection for sit-to-stand, stand-to-sit, and turning was computed by calculating a composite sit-to-stand signal and hip line signal, which utilize the hip and shoulder coordinates to segment subtasks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content has-text-centered">
+          <img src="./static/images/fig2-xsensor.jpg"
+               alt="XSENSOR insole and IMU system."
+               width="45%">
+          <p class="has-text-centered">XSENSOR Insole and IMU System.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/gvhmr_gait_trajectory_sample.png"
+               alt="Snapshots of research assistant completing the TUG with GVHMR outputs."
+               width="100%">
+          <p class="has-text-centered">Snapshots of research assistant completing the TUG, with the camera-centric view overlay of the HMR and the global-centric view.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/step_detection_sample.png"
+               alt="Detection of heel strike using peak detection."
+               width="100%">
+          <p class="has-text-centered">Detection of heel strike using peak detection, according to the detected joints using GVHMR.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="./static/images/sts_signal.png"
+               alt="Automated subtask segmentation for TUG trials."
+               width="100%">
+          <p class="has-text-centered">Automated Subtask Segmentation for three trials. Solid line refers to the hip line velocity and dashed line refers to sit-to-stand and stand-to-sit signal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Key Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            The Spearman's rank correlation analysis indicates moderate agreement between insole-derived and video-derived step time (<strong>n = 90</strong>, <strong>rho = 0.673</strong>, <strong>p &lt; 0.001</strong>). However, video-derived step time systematically underestimated the insole measurements.
+          </p>
+          <p>
+            Self-rated fall risk significantly predicted sit-to-stand duration. Spatial measures of gait involved step length and step width, but only step length and step length variability were predicted by a fixed effect of self-rated fall risk and fear of falling. Step width variability was predicted by age but not fall risk factors.
+          </p>
+          <p>
+            Step length and step length variability showed far stronger between-participant consistency and a substantially better model fit than sit-to-stand durations. These results suggest that older adults with poorer balance or reduced confidence tend to take smaller, more inconsistent steps and require more time to complete sit-to-stand transitions.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/gait_fallrisk.png"
+               alt="Relationship between step length, step length variability, and sit-to-stand duration with fall risk."
+               width="90%">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Discussion</h2>
+          <p>
+            We demonstrate the novel application of GVHMR to extract clinically meaningful gait metrics from monocular videos of older adults completing the TUG, with derived measures showing moderately strong correlations with simultaneously collected wearable-sensor data.
+          </p>
+          <p>
+            Shorter and more variable step length was associated with greater self-rated fall risk and fear of falling, consistent with literature linking cautious gait patterns to both perceived and physiological instability. Greater between-participant consistency and model fit indicate that gait characteristics such as step length may be more stable and more strongly tied to fall-risk status than sit-to-stand performance.
+          </p>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Conclusion</h2>
+          <p>
+            We offer a feasible and clinically relevant method for extracting gait and transitional movement metrics from a single TUG recording. GVHMR's ability to segment short, meaningful subtasks and produce measures that align with wearable-derived metrics highlights its potential as an accessible assessment tool.
+          </p>
+          <p>
+            Associations between fall risk factors and specific gait features, particularly step length variability and sit-to-stand duration, underscore the value of video-based analysis for identifying subtle mobility changes. Future work should evaluate whether the derived metrics can enhance fall risk screening, support remote assessments, or predict prospective functional decline.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{banarjee2026fallriskgvhmr,
+  title     = {Fall Risk and Gait Analysis in Community-Dwelling Older Adults using World-Spaced 3D Human Mesh Recovery},
+  author    = {Banarjee, Chitra and Kwon, Patrick and Lipat, Ania and Xie, Rui and Chen, Chen and Thiamwong, Ladda},
+  journal   = {arXiv preprint arXiv:2604.11961},
+  year      = {2026},
+  note      = {Presented at the CVPR 2026 Computer Vision for Biomechanics Workshop (CVBW)}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="../CVBW_wChippy.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website adapted from the Nerfies project page template and updated with content for the GVHMR-based fall risk and gait analysis paper.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

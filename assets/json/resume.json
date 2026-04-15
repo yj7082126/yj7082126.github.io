@@ -125,6 +125,20 @@
 
   "publications": [
     {
+      "name": "Fall Risk and Gait Analysis in Community-Dwelling Older Adults using World-Spaced 3D Human Mesh Recovery",
+      "publisher": "ArXiV",
+      "releaseDate": "2026-04-15",
+      "url": "https://arxiv.org/abs/2410.13911",
+      "summary": "Case Study for utilizing 3D Human Mesh Recovery (HMR) research for analyzing gait for the elderly population"
+    },
+    {
+      "name": "DreamingComics: A Story Visualization Pipeline via Subject and Layout Customized Generation using Video Models",
+      "publisher": "CVPR 2026",
+      "releaseDate": "2025-12-12",
+      "url": "https://arxiv.org/abs/2512.01686",
+      "summary": "A story visualization pipeline that repurposes video generative models and LLMs to produce identity-consistent, multi-panel comics with spatial layout control."
+    },
+    {
       "name": "GraspDiffusion: Synthesizing Realistic Whole-body Hand-Object Interaction",
       "publisher": "WACV 2026",
       "releaseDate": "2024-11-01",
