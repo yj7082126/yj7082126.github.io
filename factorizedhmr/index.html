@@ -1,0 +1,1256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FactorizedHMR: A Hybrid Framework for Video Human Mesh Recovery</title>
+  <meta
+    name="description"
+    content="Project page for FactorizedHMR: A Hybrid Framework for Video Human Mesh Recovery."
+  />
+  <style>
+    :root {
+      --bg: #f6f2ea;
+      --bg-panel: #fffdfa;
+      --bg-soft: #f1ebe0;
+      --text: #1b1a18;
+      --muted: #655f56;
+      --line: #d9cfbf;
+      --accent: #8f3f24;
+      --accent-soft: #f3e3dc;
+      --shadow: 0 18px 48px rgba(41, 33, 18, 0.08);
+      --max-width: 1180px;
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(143, 63, 36, 0.08), transparent 28%),
+        linear-gradient(180deg, #fbf7f0 0%, var(--bg) 100%);
+      font-family: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(217, 207, 191, 0.8);
+      background: rgba(251, 247, 240, 0.88);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.95rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-title {
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.95rem;
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2.4rem 1.4rem 4rem;
+    }
+
+    section {
+      margin-bottom: 2.4rem;
+    }
+
+    .hero {
+      padding: 2rem 0 1rem;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 0.8rem;
+      padding: 0.38rem 0.82rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 253, 250, 0.8);
+      color: var(--muted);
+      font-size: 0.84rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 4vw + 1rem, 4.3rem);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 2vw + 1rem, 2.5rem);
+      margin-bottom: 0.9rem;
+    }
+
+    h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.6rem;
+    }
+
+    h4 {
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    p {
+      margin: 0 0 1rem;
+    }
+
+    ul {
+      margin: 0.25rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    li + li {
+      margin-top: 0.45rem;
+    }
+
+    .lede {
+      max-width: 980px;
+      margin: 0 auto 1.25rem;
+      font-size: 1.08rem;
+      color: #2e2a24;
+    }
+
+    .authors,
+    .affiliations {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .authors {
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-links {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .hero-links a {
+      padding: 0.5rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 250, 0.75);
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+
+    .hero-links a:hover {
+      background: var(--accent-soft);
+      text-decoration: none;
+    }
+
+    .section-card {
+      padding: 1.5rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--bg-panel);
+      box-shadow: var(--shadow);
+    }
+
+    .section-intro {
+      max-width: 880px;
+      color: #302c27;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.9fr);
+      gap: 1.2rem;
+      align-items: start;
+    }
+
+    .subcard {
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fffdfa 0%, #fbf7ef 100%);
+    }
+
+    .figure {
+      margin-top: 1.2rem;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .figure + .figure {
+      margin-top: 1rem;
+    }
+
+    .figure img {
+      border-radius: 10px;
+      border: 1px solid #e8dfd1;
+    }
+
+    .figure-caption,
+    .table-caption {
+      margin-top: 0.85rem;
+      font-size: 0.92rem;
+      color: #4f4a43;
+    }
+
+    .triptych,
+    .quad,
+    .triple-compare {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .triptych {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .quad {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .triple-compare {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pair-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .label-row,
+    .mini-label-row {
+      display: grid;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .label-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .mini-label-row.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .mini-label-row.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .method-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .synthetic-media-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+
+    .synthetic-media-grid .media-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .synthetic-media-grid video,
+    .synthetic-media-grid img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .bullets {
+      margin-top: 1rem;
+    }
+
+    .table-block + .table-block {
+      margin-top: 1.1rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+      font-size: 0.88rem;
+    }
+
+    th,
+    td {
+      padding: 0.62rem 0.7rem;
+      border-bottom: 1px solid #ece4d7;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    th:first-child,
+    td:first-child {
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    thead th {
+      background: #faf4eb;
+      font-weight: 700;
+    }
+
+    tbody tr.section-row td {
+      background: #f6efe5;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .runner-up {
+      text-decoration: underline;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 3px;
+    }
+
+    .appendix-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .gallery-row {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .gallery-row img,
+    .triptych img,
+    .quad img,
+    .triple-compare img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1040px) {
+      .two-col,
+      .overview-grid,
+      .pair-grid,
+      .appendix-grid,
+      .method-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      main {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .section-card {
+        padding: 1.15rem;
+      }
+
+      .triptych,
+      .quad,
+      .triple-compare,
+      .synthetic-media-grid,
+      .gallery-row,
+      .label-row,
+      .mini-label-row.four,
+      .mini-label-row.three {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        min-width: 620px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="nav-title">FactorizedHMR</div>
+      <nav class="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#motivation">Motivation</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#appendix">Appendix</a>
+        <a href="#conclusion">Conclusion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">NeurIPS 2026 Submission</div>
+      <h1>FactorizedHMR: A Hybrid Framework for Video Human Mesh Recovery</h1>
+      <p class="lede">
+        Human Mesh Recovery (HMR) is fundamentally ambiguous: under occlusion or weak depth cues, multiple 3D bodies can explain the same image evidence. Building on this observation, we propose <strong>FactorizedHMR</strong>, a two-stage framework that treats these two regimes differently.
+      </p>
+      <div class="authors">Anonymous Authors</div>
+      <div class="affiliations">Anonymous Affiliation</div>
+      <div class="hero-links">
+        <a href="#method">Method Overview</a>
+        <a href="#results">Results Tables</a>
+        <a href="#appendix">Appendix Figures</a>
+      </div>
+    </section>
+
+    <section id="abstract" class="section-card">
+      <h2>Abstract</h2>
+      <p class="section-intro">
+        Human Mesh Recovery (HMR) is fundamentally ambiguous: under occlusion or weak depth cues, multiple 3D bodies can explain the same image evidence. This ambiguity is not uniform across the body, as torso pose and root structure are often relatively well constrained, whereas distal articulations such as the arms and legs are more uncertain. Building on this observation, we propose <strong>FactorizedHMR</strong>, a two-stage framework that treats these two regimes differently. A deterministic regression module first recovers a stable torso-root anchor, and a probabilistic flow-matching module then completes the remaining non-torso articulation. To make this completion reliable, we combine a composite target representation with geometry-aware supervision and feature-aware classifier-free guidance, preserving the torso-root anchor while improving single-reference recovery of ambiguity-prone articulation. We also introduce a synthetic data pipeline that provides the paired image-camera-motion supervision under diverse viewpoints. Across camera-space and world-space benchmarks, FactorizedHMR remains competitive with strong baselines, with the clearest gains in occlusion-heavy recovery and drift-sensitive world-space metrics.
+      </p>
+    </section>
+
+    <section id="motivation" class="section-card">
+      <h2>Motivation</h2>
+      <div class="two-col">
+        <div>
+          <p>
+            Human Mesh Recovery (HMR) reconstructs 3D human pose, shape, and motion from visual observations. Yet video HMR remains difficult under partial observation, especially with occlusion, truncation, and depth ambiguity, where multiple plausible 3D bodies can explain the same image evidence.
+          </p>
+          <p>
+            Deterministic methods are efficient, but under ambiguity they often regress toward an average solution. Probabilistic methods are more expressive, but modeling the full state stochastically can waste capacity on well-constrained torso, root, and camera variables that are often better handled deterministically.
+          </p>
+          <p>
+            This motivates our central claim: <em>HMR benefits from uncertainty-aware completion, in which stable variables are estimated deterministically while ambiguity-prone variables are refined probabilistically.</em>
+          </p>
+        </div>
+        <div class="subcard">
+          <h3>Contributions</h3>
+          <ul class="bullets">
+            <li>We propose FactorizedHMR, a hybrid video HMR framework that decouples stable torso-root estimation from ambiguity-prone motion completion.</li>
+            <li>We formulate selective probabilistic HMR as masked conditional flow matching, keeping anchor variables fixed while generating only non-torso and world-motion variables.</li>
+            <li>We introduce geometry-aware completion objectives that combine composite rotation-joint targets, representation-aware noising, joint-bone consistency, projection loss, and feature-aware CFG.</li>
+            <li>We develop a camera-aware synthetic training pipeline and demonstrate competitive overall performance, with the strongest gains under severe occlusion.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pair-grid">
+        <div class="figure">
+          <div class="mini-label-row three">
+            <div>(a) GT</div>
+            <div>(b) GVHMR</div>
+            <div>(c) Ours</div>
+          </div>
+          <div class="triptych">
+            <img src="./static/images/paper/Fig1_GroundTruth.png" alt="Ground-truth example under occlusion" />
+            <img src="./static/images/paper/Fig1_GVHMR-marked.jpg" alt="GVHMR qualitative example" />
+            <img src="./static/images/paper/Fig1_Ours.png" alt="FactorizedHMR qualitative example" />
+          </div>
+          <div class="figure-caption">
+            Qualitative comparison on EMDB. The left arm and hand are heavily occluded by the tree, so multiple poses are plausible. GVHMR predicts a left hand that is not visible in the image (red square), illustrating how deterministic pipelines can commit to an implausible average solution under ambiguity. Our method instead preserves the visible pose while producing a more plausible completion for the occluded limb.
+          </div>
+        </div>
+
+        <div class="figure">
+          <img src="./static/images/paper/Fig1_2-multi2.png" alt="Per-joint confidence consistency visualization" />
+          <div class="figure-caption">
+            Visualization of per-joint confidence consistency across the test datasets, where higher values correspond to more reliable observation. Visual evidence is concentrated in the torso, while distal limbs are less consistently detected.
+          </div>
+        </div>
+      </div>
+
+      <div class="figure">
+        <div class="overview-grid">
+          <img src="./static/images/paper/Fig3-1.png" alt="FactorizedHMR example result 1" />
+          <img src="./static/images/paper/Fig3-2-2.png" alt="FactorizedHMR example result 2" />
+        </div>
+        <div class="figure-caption">
+          Example results for FactorizedHMR. Stage 1 <span style="color:#3e8c4a;">(green)</span> deterministically estimates a torso-root anchor for the less ambiguous body parts and Stage 2 <span style="color:#b53a2f;">(red)</span> uses conditional flow matching to complete the non-torso body poses, both for camera and world space.
+        </div>
+      </div>
+    </section>
+
+    <section id="method" class="section-card">
+      <h2>Method</h2>
+      <p class="section-intro">
+        Given an input video, our goal is to recover temporally consistent human motion in both camera space and world space. Torso pose, body shape, and camera-space root motion are usually well constrained and form a <em>structural anchor</em>, while non-torso articulation and world motion are more ambiguous because they are more sensitive to occlusion, truncation, and camera-body disentanglement.
+      </p>
+
+      <div class="figure">
+        <img src="./static/images/paper/Fig2-2.png" alt="FactorizedHMR pipeline overview" />
+        <div class="figure-caption">
+          Overview of FactorizedHMR. Input video frames are preprocessed into ray-embedded keypoints, image embeddings, and camera-motion features. Stage 1 uses a deterministic regressor to predict a torso-root structural anchor, 𝒜 = [&theta;<sub>torso</sub>, &beta;, &Gamma;<sub>c</sub>, &tau;<sub>c</sub>]. Conditioned on the shared video features and this anchor, Stage 2 uses masked flow matching to complete the non-torso articulation and world-motion variables, yielding the final human motion in camera and world space. The two stages are trained sequentially, and the training losses are described in Sec. 3.4.
+        </div>
+      </div>
+
+      <div class="method-columns">
+        <div class="subcard">
+          <h3>Stage 1: Deterministic Structural Estimation</h3>
+          <p>
+            Stage 1 uses a deterministic transformer with rotary position embeddings, motivated by GVHMR, to estimate the structural anchor. It predicts only torso pose, body shape, and camera-space trajectory variables, deferring the more ambiguous world-motion components to Stage 2.
+          </p>
+          <p>
+            Inputs include bounding-box features, 2D keypoint observations, image features, and relative camera-motion features. Keypoints are converted to camera-ray directions with the intrinsics, embedded with sinusoidal encodings, projected by per-modality MLPs, and summed into per-frame tokens for the relative transformer.
+          </p>
+        </div>
+
+        <div class="subcard">
+          <h3>Stage 2: Non-Torso Articulation and World Completion via Masked Flow Matching</h3>
+          <p>
+            Stage 2 augments local rotations with 3D camera-space joint positions, since rotations alone do not directly expose resulting limb geometry. Variables copied from Stage 1 are fixed by the mask, while Stage 2 generates the non-torso and world-motion subset; the rotation branch defines the final body and the joint-position branch provides auxiliary geometric supervision.
+          </p>
+          <p>
+            We split the latent into known coordinates from the structural anchor and unknown coordinates for ambiguous non-torso and world-motion variables. At inference, only the generated coordinates start from Gaussian noise, and an ODE sampler re-imposes the known coordinates after each update to produce conditional completion around a fixed structural anchor.
+          </p>
+        </div>
+      </div>
+
+      <div class="method-columns">
+        <div class="subcard">
+          <h3>Anchor Conditioning and CFG</h3>
+          <p>
+            Stage 2 shares the visual and camera conditions used by Stage 1 and also receives a compact torso-pose condition from the Stage 1 anchor. We apply classifier-free guidance by dropping observation-heavy conditions during training while keeping the structural-anchor conditions, strengthening observation-conditioned completion without discarding the anchor.
+          </p>
+        </div>
+
+        <div class="subcard">
+          <h3>Geometry-Aware Training</h3>
+          <p>
+            In addition to the generative objective, we use geometry-aware losses similar to GVHMR. For Stage 2, these supervise pose, joints, root motion, projected 2D joints and vertices, camera-frame translation, and recovered world translation. We also add joint-bone consistency and a direct projection loss for ambiguous non-torso joints to keep the completed motion consistent with SMPL-X geometry, image evidence, and camera/world trajectory constraints.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2>Synthetic Dataset Generation Pipeline</h2>
+      <p class="section-intro">
+        Motion-only corpora such as AMASS contain rich human dynamics, but they do not provide paired realistic videos and are therefore insufficient for training models for recovering human motion from imagery. Real videos offer much richer appearance variation, but their annotations are often noisy or incomplete. To address this, we construct a synthetic pipeline that preserves exact motion-capture supervision while using Uni3C as a video synthesis engine, which unifies camera and human-motion control from a single-view image across broader visual domains.
+      </p>
+      <p class="section-intro">
+        Given a motion sequence and its SMPL-X parameters, we sample a camera trajectory with known camera parameters. We render geometric control signals, including SMPL-X body renderings, hand renderings, masks, and an OpenPose-style first-frame pose. The pose rendering is used to synthesize a reference image with identity and scene prompts using depth-conditioned FLUX.1. We then estimate monocular metric depth for the reference image using Depth Pro and unproject it into a scene point cloud, which serves as the environment coordinate system. The SMPL-X motion and scene point cloud are rendered under the same target camera trajectory, producing aligned human-motion and camera-control conditions for Uni3C. The final RGB video is then generated by Uni3C from the reference image, the rendered point-cloud trajectory, and the rendered human motion.
+      </p>
+      <div class="figure">
+        <div class="synthetic-media-grid">
+          <div class="media-card">
+            <video autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+              <source src="./static/images/row1-1.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="media-card">
+            <img src="./static/images/row1-2.png" alt="Synthetic dataset generation example row 1 column 2" />
+          </div>
+          <div class="media-card">
+            <video autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+              <source src="./static/images/row1-3.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="media-card">
+            <video autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+              <source src="./static/images/row1-4.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="media-card">
+            <video autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+              <source src="./static/images/row2-1.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="media-card">
+            <img src="./static/images/row2-2.png" alt="Synthetic dataset generation example row 2 column 2" />
+          </div>
+          <div class="media-card">
+            <video autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+              <source src="./static/images/row2-3.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="media-card">
+            <video autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+              <source src="./static/images/row2-4.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+        <div class="figure-caption">
+          Input and output examples from the synthetic dataset generation pipeline.
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="section-card">
+      <h2>Results</h2>
+      <div class="section-intro">
+        <p>
+          Both stages use 12-layer transformers with rotary position embeddings, 8 attention heads, and hidden size 512. We train on AMASS, BEDLAM, H36M, and 3DPW, plus Uni3C-based synthetic sequences for additional camera-aware supervision.
+        </p>
+        <p>
+          We report camera-space metrics on 3DPW, RICH, and EMDB-1; world-space metrics on RICH and EMDB-2; and occlusion-focused results on 3DPW-XOCC.
+        </p>
+      </div>
+
+      <div class="table-block">
+        <h3>Camera-Space Motion Recovery</h3>
+        <p>
+          Our method remains highly competitive on standard camera-space benchmarks. MPJPE improves consistently across datasets, while PA-MPJPE and PVE remain broadly competitive, indicating that the factorization improves ambiguous articulation without sacrificing torso stability.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th rowspan="2">Models</th>
+                <th colspan="3">3DPW</th>
+                <th colspan="3">RICH</th>
+                <th colspan="3">EMDB</th>
+              </tr>
+              <tr>
+                <th>PA-MPJPE ↓</th>
+                <th>MPJPE ↓</th>
+                <th>PVE ↓</th>
+                <th>PA-MPJPE ↓</th>
+                <th>MPJPE ↓</th>
+                <th>PVE ↓</th>
+                <th>PA-MPJPE ↓</th>
+                <th>MPJPE ↓</th>
+                <th>PVE ↓</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="section-row"><td colspan="10">Per-frame</td></tr>
+              <tr><td>CLIFF*</td><td>43.0</td><td>69.0</td><td>81.2</td><td>56.6</td><td>102.6</td><td>115.0</td><td>68.1</td><td>103.3</td><td>128.0</td></tr>
+              <tr><td>HybrIK*</td><td>41.8</td><td>71.6</td><td>82.3</td><td>56.4</td><td>96.8</td><td>110.4</td><td>65.6</td><td>103.0</td><td>122.2</td></tr>
+              <tr><td>HMR2.0</td><td>44.4</td><td>69.8</td><td>82.2</td><td>48.1</td><td>96.0</td><td>110.9</td><td>60.6</td><td>98.0</td><td>120.3</td></tr>
+              <tr><td>ReFit*</td><td>40.5</td><td>65.3</td><td>75.1</td><td>47.9</td><td>80.7</td><td>92.9</td><td>58.6</td><td>88.0</td><td>104.5</td></tr>
+              <tr class="section-row"><td colspan="10">Temporal</td></tr>
+              <tr><td>VIBE*</td><td>51.9</td><td>82.9</td><td>98.4</td><td>68.4</td><td>120.5</td><td>140.2</td><td>81.4</td><td>125.9</td><td>146.8</td></tr>
+              <tr><td>TRACE*</td><td>50.9</td><td>79.1</td><td>95.4</td><td>--</td><td>--</td><td>--</td><td>70.9</td><td>109.9</td><td>127.4</td></tr>
+              <tr><td>SLAHMR</td><td>55.9</td><td>--</td><td>--</td><td>52.5</td><td>--</td><td>--</td><td>69.5</td><td>93.5</td><td>110.7</td></tr>
+              <tr><td>PACE</td><td>--</td><td>--</td><td>--</td><td>49.3</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+              <tr><td>WHAM*</td><td><span class="runner-up">35.9</span></td><td>57.8</td><td><span class="runner-up">68.7</span></td><td>44.3</td><td>80.0</td><td>91.2</td><td>50.4</td><td>79.7</td><td>94.4</td></tr>
+              <tr><td>GVHMR*</td><td>37.1</td><td><span class="runner-up">56.9</span></td><td>68.8</td><td><span class="runner-up">39.5</span></td><td><span class="runner-up">66.0</span></td><td><strong>74.4</strong></td><td><strong>44.6</strong></td><td><span class="runner-up">74.0</span></td><td><strong>86.0</strong></td></tr>
+              <tr><td>TRAM*</td><td><strong>35.6</strong></td><td>59.3</td><td>69.6</td><td>--</td><td>--</td><td>--</td><td><span class="runner-up">45.7</span></td><td>74.4</td><td>86.6</td></tr>
+              <tr><td>GENMO*</td><td>42.9</td><td>62.3</td><td>82.8</td><td>--</td><td>--</td><td>--</td><td>47.6</td><td>81.2</td><td>94.6</td></tr>
+              <tr><td><strong>Ours*</strong></td><td>36.9</td><td><strong>56.2</strong></td><td><strong>68.3</strong></td><td><strong>39.1</strong></td><td><strong>65.8</strong></td><td><span class="runner-up">74.5</span></td><td><span class="runner-up">45.7</span></td><td><strong>73.6</strong></td><td><span class="runner-up">86.5</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-caption">
+          Camera-space metrics. We evaluate the camera-space motion quality on the 3DPW, RICH and EMDB-1 datasets. * denotes models trained with the 3DPW training set.
+        </div>
+      </div>
+
+      <div class="table-block">
+        <h3>Regional Breakdown</h3>
+        <p>
+          The torso/non-torso split highlights the intended division of labor: Stage 1 improves the torso subset over GVHMR, while Stage 2 achieves the best MPJPE on the non-torso subset across all three datasets.
+        </p>
+        <div class="appendix-grid">
+          <div>
+            <h4>Torso Setup</h4>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th rowspan="2">Models</th>
+                    <th colspan="2">3DPW</th>
+                    <th colspan="2">RICH</th>
+                    <th colspan="2">EMDB</th>
+                  </tr>
+                  <tr>
+                    <th>PA-MPJPE ↓</th>
+                    <th>MPJPE ↓</th>
+                    <th>PA-MPJPE ↓</th>
+                    <th>MPJPE ↓</th>
+                    <th>PA-MPJPE ↓</th>
+                    <th>MPJPE ↓</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>GVHMR</td><td>5.96</td><td>27.31</td><td>9.03</td><td>36.79</td><td>14.96</td><td>51.56</td></tr>
+                  <tr><td><strong>Ours</strong></td><td><strong>5.72</strong></td><td><strong>27.21</strong></td><td><strong>9.00</strong></td><td><strong>35.82</strong></td><td><strong>14.26</strong></td><td><strong>50.03</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <h4>Non-Torso Setup</h4>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th rowspan="2">Models</th>
+                    <th colspan="2">3DPW</th>
+                    <th colspan="2">RICH</th>
+                    <th colspan="2">EMDB</th>
+                  </tr>
+                  <tr>
+                    <th>PA-MPJPE ↓</th>
+                    <th>MPJPE ↓</th>
+                    <th>PA-MPJPE ↓</th>
+                    <th>MPJPE ↓</th>
+                    <th>PA-MPJPE ↓</th>
+                    <th>MPJPE ↓</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>GVHMR</td><td><strong>39.5</strong></td><td>64.9</td><td>45.6</td><td>80.7</td><td><strong>51.6</strong></td><td>85.4</td></tr>
+                  <tr><td><strong>Ours</strong></td><td>39.6</td><td><strong>64.7</strong></td><td><strong>45.4</strong></td><td><strong>79.6</strong></td><td>53.0</td><td><strong>84.6</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="table-caption">
+          Regional camera-space evaluation against GVHMR. The left table reports the <code>torso</code> region predicted by Stage 1. The right table reports the <code>non-torso</code> region refined by Stage 2.
+        </div>
+      </div>
+
+      <div class="table-block">
+        <h3>World-Space Motion Recovery and Occlusion-Specific Benchmark</h3>
+        <p>
+          In world space, the clearest gain appears on drift-sensitive W-MPJPE, suggesting better long-horizon coherence. On 3DPW-XOCC, our method achieves the best performance on all reported metrics, showing the largest benefits under severe occlusion.
+        </p>
+        <div class="appendix-grid">
+          <div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th rowspan="2">Models</th>
+                    <th colspan="5">EMDB</th>
+                    <th colspan="5">RICH</th>
+                  </tr>
+                  <tr>
+                    <th>WA-MPJPE ↓</th>
+                    <th>W-MPJPE ↓</th>
+                    <th>Root translation ↓</th>
+                    <th>Jitter ↓</th>
+                    <th>Foot-sliding ↓</th>
+                    <th>WA-MPJPE ↓</th>
+                    <th>W-MPJPE ↓</th>
+                    <th>Root translation ↓</th>
+                    <th>Jitter ↓</th>
+                    <th>Foot-sliding ↓</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>TRACE</td><td>529.0</td><td>1702.3</td><td>17.7</td><td>2987.6</td><td>370.7</td><td>238.1</td><td>925.4</td><td>610.4</td><td>1578.6</td><td>230.7</td></tr>
+                  <tr><td>GLAMR</td><td>280.8</td><td>726.6</td><td>11.4</td><td>46.3</td><td>20.7</td><td>129.4</td><td>236.2</td><td>3.8</td><td>49.7</td><td>18.1</td></tr>
+                  <tr><td>SLAHMR</td><td>326.9</td><td>776.1</td><td>10.2</td><td>31.3</td><td>14.5</td><td>98.1</td><td>186.4</td><td>28.9</td><td>34.3</td><td>5.1</td></tr>
+                  <tr><td>WHAM</td><td>135.6</td><td>354.8</td><td>6.0</td><td>22.5</td><td><span class="runner-up">4.4</span></td><td>109.9</td><td>184.6</td><td>4.1</td><td>19.7</td><td><span class="runner-up">3.3</span></td></tr>
+                  <tr><td>GVHMR</td><td>111.0</td><td>276.5</td><td>2.0</td><td><span class="runner-up">16.7</span></td><td><strong>3.5</strong></td><td><strong>78.8</strong></td><td><span class="runner-up">126.3</span></td><td><strong>2.4</strong></td><td><span class="runner-up">12.8</span></td><td><span class="runner-up">3.0</span></td></tr>
+                  <tr><td>TRAM</td><td>76.4</td><td>222.4</td><td><span class="runner-up">1.4</span></td><td>18.1</td><td>11.0</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                  <tr><td>GENMO</td><td><strong>65.1</strong></td><td><span class="runner-up">210.9</span></td><td><strong>1.0</strong></td><td><strong>9.58</strong></td><td>8.3</td><td><span class="runner-up">80.7</span></td><td>127.2</td><td>2.6</td><td><strong>8.6</strong></td><td><strong>2.7</strong></td></tr>
+                  <tr><td><strong>Ours</strong></td><td><span class="runner-up">70.5</span></td><td><strong>192.5</strong></td><td>1.5</td><td>17.7</td><td>9.3</td><td>86.6</td><td><strong>123.3</strong></td><td><span class="runner-up">2.5</span></td><td>17.7</td><td>8.6</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-caption">
+              World-space reconstruction on EMDB and RICH datasets.
+            </div>
+          </div>
+
+          <div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Methods</th>
+                    <th>MPJPE ↓</th>
+                    <th>PA-MPJPE ↓</th>
+                    <th>PVE ↓</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>HybrIK</td><td>148.3</td><td>98.7</td><td>164.5</td></tr>
+                  <tr><td>PARE</td><td>114.2</td><td>67.7</td><td>133.0</td></tr>
+                  <tr><td>PARE + VIBE</td><td>97.3</td><td>60.2</td><td>114.9</td></tr>
+                  <tr><td>NIKI (frame-based)</td><td>110.7</td><td>60.5</td><td>128.6</td></tr>
+                  <tr><td>NIKI (temporal)</td><td>88.9</td><td>52.1</td><td>98.0</td></tr>
+                  <tr><td>GENMO</td><td>76.2</td><td>48.4</td><td>94.2</td></tr>
+                  <tr><td><strong>Ours</strong></td><td><strong>66.3</strong></td><td><strong>45.1</strong></td><td><strong>81.2</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-caption">
+              Occlusion-specific evaluation on the 3DPW-XOCC dataset.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-block">
+        <h3>Ablation Studies</h3>
+        <p>
+          Adding Stage 2 yields the largest improvement, showing that the torso-root anchor alone is not enough for full-body recovery. Composite representation, geometry-aware losses, CFG scaling, and synthetic data each provide further gains.
+        </p>
+        <div class="appendix-grid">
+          <div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Variant</th>
+                    <th>PA-MPJPE ↓</th>
+                    <th>MPJPE ↓</th>
+                    <th>PVE ↓</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Stage 1 Model</td><td>65.0</td><td>77.0</td><td>122.4</td></tr>
+                  <tr><td>+ Stage 2 Model</td><td>39.9</td><td>60.3</td><td>73.3</td></tr>
+                  <tr><td>+ Composite Representation</td><td>39.4</td><td>59.2</td><td>71.8</td></tr>
+                  <tr><td>+ Geometry-aware losses</td><td>37.2</td><td>57.2</td><td>69.2</td></tr>
+                  <tr><td>+ CFG scaling</td><td>37.1</td><td>56.5</td><td>68.5</td></tr>
+                  <tr><td>+ synthetic dataset</td><td>36.9</td><td>56.2</td><td>68.3</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-caption">
+              Progressive ablation on camera-space reconstruction metrics, compared on 3DPW.
+            </div>
+          </div>
+
+          <div class="figure">
+            <div class="mini-label-row four">
+              <div>Input</div>
+              <div>GT</div>
+              <div>GVHMR</div>
+              <div>Ours</div>
+            </div>
+            <div class="quad">
+              <img src="./static/images/paper/Fig4-1-input-comp.jpg" alt="Body-shape recovery input" />
+              <img src="./static/images/paper/Fig4-1-gt-comp.jpg" alt="Body-shape recovery ground truth" />
+              <img src="./static/images/paper/Fig4-1-gvhmr-comp.jpg" alt="Body-shape recovery GVHMR" />
+              <img src="./static/images/paper/Fig4-1-ours-comp.jpg" alt="Body-shape recovery ours" />
+            </div>
+            <div class="figure-caption">
+              Body-shape recovery under heavy occlusion. FactorizedHMR better preserves body volume.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-block">
+        <h3>Qualitative Results</h3>
+        <p>
+          These examples show common failure modes of deterministic pipelines under ambiguity. Compared with GVHMR and GENMO, our method produces distal poses that better match the visible evidence.
+        </p>
+        <div class="figure">
+          <div class="mini-label-row four">
+            <div>GT</div>
+            <div>GVHMR</div>
+            <div>GENMO</div>
+            <div>Ours</div>
+          </div>
+          <div class="quad">
+            <img src="./static/images/paper/Fig5-3-gt.png" alt="Qualitative pose comparison GT 1" />
+            <img src="./static/images/paper/Fig5-3-gvhmr.png" alt="Qualitative pose comparison GVHMR 1" />
+            <img src="./static/images/paper/Fig5-3-genmo.png" alt="Qualitative pose comparison GENMO 1" />
+            <img src="./static/images/paper/Fig5-3-ours.png" alt="Qualitative pose comparison Ours 1" />
+          </div>
+        </div>
+
+        <div class="appendix-grid">
+          <div class="figure">
+            <div class="mini-label-row three">
+              <div>GT</div>
+              <div>GVHMR</div>
+              <div>Ours</div>
+            </div>
+            <div class="triple-compare">
+              <img src="./static/images/paper/Fig5-5-gt.png" alt="Qualitative pose comparison GT 2" />
+              <img src="./static/images/paper/Fig5-5-gvhmr.png" alt="Qualitative pose comparison GVHMR 2" />
+              <img src="./static/images/paper/Fig5-5-ours.png" alt="Qualitative pose comparison Ours 2" />
+            </div>
+          </div>
+
+          <div class="figure">
+            <div class="mini-label-row three">
+              <div>GT</div>
+              <div>GVHMR</div>
+              <div>Ours</div>
+            </div>
+            <div class="triple-compare">
+              <img src="./static/images/paper/Fig5-6-gt.png" alt="Qualitative pose comparison GT 3" />
+              <img src="./static/images/paper/Fig5-6-gvhmr.png" alt="Qualitative pose comparison GVHMR 3" />
+              <img src="./static/images/paper/Fig5-6-ours.png" alt="Qualitative pose comparison Ours 3" />
+            </div>
+          </div>
+        </div>
+        <div class="figure-caption">
+          Body-pose recovery in ambiguity-heavy scenes. The red squares in the GVHMR and GENMO results indicate incorrectly predicted body poses.
+        </div>
+      </div>
+
+      <div class="subcard">
+        <h3>Runtime Analysis</h3>
+        <p>
+          On a 1193-frame sequence, the full two-stage model requires 3.92 ± 0.03 seconds versus 0.41 ± 0.01 seconds for GVHMR and uses 1057.0 MB versus 303.6 MB of peak GPU memory on an RTX A5000. With 50 denoising steps, it still runs at 304.45 FPS, and the cost can be reduced with fewer steps.
+        </p>
+      </div>
+    </section>
+
+    <section id="appendix" class="section-card">
+      <h2>Appendix Figures and Tables</h2>
+
+      <div class="appendix-grid">
+        <div class="figure">
+          <img src="./static/images/paper/Fig10.png" alt="ODE sampling steps ablation figure" />
+          <div class="figure-caption">
+            Effect of the number of ODE sampling steps on MPJPE and WA2-MPJPE metrics. Both metrics improve rapidly from very small step counts and then saturate, with only minor differences beyond roughly 20 steps. We use 50 steps as a conservative near-converged default.
+          </div>
+        </div>
+
+        <div class="figure">
+          <img src="./static/images/paper/Fig8-mini.png" alt="3DPW-XOCC example figure" />
+          <div class="figure-caption">
+            Example of 3DPW-XOCC's occluded frames (right) compared to the original 3DPW dataset (left).
+          </div>
+        </div>
+      </div>
+
+      <div class="table-block" style="margin-top:1.2rem;">
+        <h3>Per-Joint Baseline Error Analysis</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Joint group / joint</th>
+                <th>3DPW</th>
+                <th>EMDB-1</th>
+                <th>RICH</th>
+                <th>Mean</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="section-row"><td colspan="5">Torso joints</td></tr>
+              <tr><td>Pelvis / root</td><td>--</td><td>14.71</td><td>10.74</td><td>12.73</td></tr>
+              <tr><td>Left hip</td><td>16.97</td><td>9.32</td><td>8.37</td><td>11.55</td></tr>
+              <tr><td>Right hip</td><td>16.97</td><td>9.32</td><td>8.37</td><td>11.55</td></tr>
+              <tr><td>Spine / torso</td><td>--</td><td>55.04</td><td>35.71</td><td>45.38</td></tr>
+              <tr><td>Neck</td><td>47.98</td><td>78.48</td><td>62.67</td><td>63.04</td></tr>
+              <tr><td>Left shoulder</td><td>52.20</td><td>76.67</td><td>59.89</td><td>62.92</td></tr>
+              <tr><td>Right shoulder</td><td>48.17</td><td>75.60</td><td>55.66</td><td>59.81</td></tr>
+              <tr class="section-row"><td colspan="5">Non-torso joints</td></tr>
+              <tr><td>Left elbow</td><td>69.64</td><td>84.90</td><td>73.89</td><td>76.14</td></tr>
+              <tr><td>Right elbow</td><td>61.82</td><td>78.72</td><td>69.69</td><td>70.08</td></tr>
+              <tr><td>Left wrist</td><td>84.70</td><td>109.27</td><td>89.17</td><td>94.38</td></tr>
+              <tr><td>Right wrist</td><td>82.34</td><td>99.39</td><td>86.99</td><td>89.57</td></tr>
+              <tr><td>Left hand</td><td>--</td><td>125.99</td><td>101.72</td><td>113.86</td></tr>
+              <tr><td>Right hand</td><td>--</td><td>115.88</td><td>99.08</td><td>107.48</td></tr>
+              <tr><td>Left knee</td><td>46.53</td><td>55.66</td><td>66.98</td><td>56.39</td></tr>
+              <tr><td>Right knee</td><td>44.57</td><td>56.07</td><td>62.71</td><td>54.45</td></tr>
+              <tr><td>Left ankle</td><td>83.42</td><td>89.24</td><td>108.91</td><td>93.86</td></tr>
+              <tr><td>Right ankle</td><td>80.06</td><td>92.56</td><td>106.87</td><td>93.16</td></tr>
+              <tr><td>Left foot</td><td>--</td><td>104.42</td><td>115.53</td><td>109.98</td></tr>
+              <tr><td>Right foot</td><td>--</td><td>107.93</td><td>113.44</td><td>110.69</td></tr>
+              <tr><td><strong>Anchor mean</strong></td><td>36.46</td><td>43.33</td><td>39.7</td><td>39.83</td></tr>
+              <tr><td><strong>Distal mean</strong></td><td>69.14</td><td>93.34</td><td>91.25</td><td>84.58</td></tr>
+              <tr><td><strong>Distal - anchor</strong></td><td>32.68</td><td>50.01</td><td>51.55</td><td>44.75</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-caption">
+          Per-joint MPJPE calculated by GVHMR across test datasets. Lower values indicate joints that are more reliably recovered by a strong deterministic baseline.
+        </div>
+      </div>
+
+      <div class="table-block" style="margin-top:1.2rem;">
+        <h3>Additional Qualitative Comparisons</h3>
+        <div class="gallery-rows">
+          <div class="mini-label-row three">
+            <div>GT</div>
+            <div>Baseline</div>
+            <div>Ours</div>
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig6-1-gt-comp.jpg" alt="Appendix qualitative GT 1" />
+            <img src="./static/images/paper/Fig6-1-baseline-comp.jpg" alt="Appendix qualitative baseline 1" />
+            <img src="./static/images/paper/Fig6-1-ours-comp.jpg" alt="Appendix qualitative ours 1" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig6-2-gt-comp.jpg" alt="Appendix qualitative GT 2" />
+            <img src="./static/images/paper/Fig6-2-baseline-comp.jpg" alt="Appendix qualitative baseline 2" />
+            <img src="./static/images/paper/Fig6-2-ours-comp.jpg" alt="Appendix qualitative ours 2" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig6-3-gt-comp.jpg" alt="Appendix qualitative GT 3" />
+            <img src="./static/images/paper/Fig6-3-baseline-comp.jpg" alt="Appendix qualitative baseline 3" />
+            <img src="./static/images/paper/Fig6-3-ours-comp.jpg" alt="Appendix qualitative ours 3" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig6-4-gt-comp.jpg" alt="Appendix qualitative GT 4" />
+            <img src="./static/images/paper/Fig6-4-baseline-comp.jpg" alt="Appendix qualitative baseline 4" />
+            <img src="./static/images/paper/Fig6-4-ours-comp.jpg" alt="Appendix qualitative ours 4" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig6-5-gt-comp.jpg" alt="Appendix qualitative GT 5" />
+            <img src="./static/images/paper/Fig6-5-baseline-comp.jpg" alt="Appendix qualitative baseline 5" />
+            <img src="./static/images/paper/Fig6-5-ours-comp.jpg" alt="Appendix qualitative ours 5" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig6-6-gt-comp.jpg" alt="Appendix qualitative GT 6" />
+            <img src="./static/images/paper/Fig6-6-baseline-comp.jpg" alt="Appendix qualitative baseline 6" />
+            <img src="./static/images/paper/Fig6-6-ours-comp.jpg" alt="Appendix qualitative ours 6" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig6-7-gt-comp.jpg" alt="Appendix qualitative GT 7" />
+            <img src="./static/images/paper/Fig6-7-baseline-comp.jpg" alt="Appendix qualitative baseline 7" />
+            <img src="./static/images/paper/Fig6-7-ours-comp.jpg" alt="Appendix qualitative ours 7" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig6-8-gt-comp.jpg" alt="Appendix qualitative GT 8" />
+            <img src="./static/images/paper/Fig6-8-baseline-comp.jpg" alt="Appendix qualitative baseline 8" />
+            <img src="./static/images/paper/Fig6-8-ours-comp.jpg" alt="Appendix qualitative ours 8" />
+          </div>
+        </div>
+        <div class="figure-caption">
+          Additional qualitative comparisons in the appendix. Each example is shown left-to-right as GT, baseline, and Ours. Across a broader set of ambiguity-heavy scenes, FactorizedHMR produces distal-limb completions that remain more consistent with the visible evidence under occlusion, truncation, and clutter.
+        </div>
+      </div>
+
+      <div class="appendix-grid" style="margin-top:1.2rem;">
+        <div class="figure">
+          <div class="mini-label-row three">
+            <div>Input</div>
+            <div>GVHMR</div>
+            <div>Ours</div>
+          </div>
+          <div class="gallery-rows">
+            <div class="gallery-row">
+              <img src="./static/images/paper/Fig7-9-input-comp.jpg" alt="GVHMR comparison input 1" />
+              <img src="./static/images/paper/Fig7-9-gvhmr-comp.jpg" alt="GVHMR comparison baseline 1" />
+              <img src="./static/images/paper/Fig7-9-ours-comp.jpg" alt="GVHMR comparison ours 1" />
+            </div>
+            <div class="gallery-row">
+              <img src="./static/images/paper/Fig7-10-input-comp.jpg" alt="GVHMR comparison input 2" />
+              <img src="./static/images/paper/Fig7-10-gvhmr-comp.jpg" alt="GVHMR comparison baseline 2" />
+              <img src="./static/images/paper/Fig7-10-ours-comp.jpg" alt="GVHMR comparison ours 2" />
+            </div>
+            <div class="gallery-row">
+              <img src="./static/images/paper/Fig7-11-input-comp.jpg" alt="GVHMR comparison input 3" />
+              <img src="./static/images/paper/Fig7-11-gvhmr-comp.jpg" alt="GVHMR comparison baseline 3" />
+              <img src="./static/images/paper/Fig7-11-ours-comp.jpg" alt="GVHMR comparison ours 3" />
+            </div>
+            <div class="gallery-row">
+              <img src="./static/images/paper/Fig7-12-input-comp.jpg" alt="GVHMR comparison input 4" />
+              <img src="./static/images/paper/Fig7-12-gvhmr-comp.jpg" alt="GVHMR comparison baseline 4" />
+              <img src="./static/images/paper/Fig7-12-ours-comp.jpg" alt="GVHMR comparison ours 4" />
+            </div>
+          </div>
+          <div class="figure-caption">
+            Additional body-pose recovery comparisons between our method and GVHMR.
+          </div>
+        </div>
+
+        <div class="figure">
+          <div class="mini-label-row three">
+            <div>Input</div>
+            <div>GVHMR</div>
+            <div>Ours</div>
+          </div>
+          <div class="gallery-rows">
+            <div class="gallery-row">
+              <img src="./static/images/paper/Fig7-13-input-comp.jpg" alt="GVHMR comparison input 5" />
+              <img src="./static/images/paper/Fig7-13-gvhmr-comp.jpg" alt="GVHMR comparison baseline 5" />
+              <img src="./static/images/paper/Fig7-13-ours-comp.jpg" alt="GVHMR comparison ours 5" />
+            </div>
+            <div class="gallery-row">
+              <img src="./static/images/paper/Fig7-14-input-comp.jpg" alt="GVHMR comparison input 6" />
+              <img src="./static/images/paper/Fig7-14-gvhmr-comp.jpg" alt="GVHMR comparison baseline 6" />
+              <img src="./static/images/paper/Fig7-14-ours-comp.jpg" alt="GVHMR comparison ours 6" />
+            </div>
+            <div class="gallery-row">
+              <img src="./static/images/paper/Fig7-15-input-comp.jpg" alt="GVHMR comparison input 7" />
+              <img src="./static/images/paper/Fig7-15-gvhmr-comp.jpg" alt="GVHMR comparison baseline 7" />
+              <img src="./static/images/paper/Fig7-15-ours-comp.jpg" alt="GVHMR comparison ours 7" />
+            </div>
+            <div class="gallery-row">
+              <img src="./static/images/paper/Fig7-16-input-comp.jpg" alt="GVHMR comparison input 8" />
+              <img src="./static/images/paper/Fig7-16-gvhmr-comp.jpg" alt="GVHMR comparison baseline 8" />
+              <img src="./static/images/paper/Fig7-16-ours-comp.jpg" alt="GVHMR comparison ours 8" />
+            </div>
+          </div>
+          <div class="figure-caption">
+            Additional body-pose recovery comparisons between our method and GVHMR.
+          </div>
+        </div>
+      </div>
+
+      <div class="figure" style="margin-top:1.2rem;">
+        <div class="mini-label-row three">
+          <div>Input</div>
+          <div>GENMO</div>
+          <div>Ours</div>
+        </div>
+        <div class="gallery-rows">
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig9-1_input-comp.jpg" alt="GENMO comparison input 1" />
+            <img src="./static/images/paper/Fig9-1_genmo-comp.jpg" alt="GENMO comparison baseline 1" />
+            <img src="./static/images/paper/Fig9-1_ours-comp.jpg" alt="GENMO comparison ours 1" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig9-2_input-comp.jpg" alt="GENMO comparison input 2" />
+            <img src="./static/images/paper/Fig9-2_genmo-comp.jpg" alt="GENMO comparison baseline 2" />
+            <img src="./static/images/paper/Fig9-2_ours-comp.jpg" alt="GENMO comparison ours 2" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig9-3_input-comp.jpg" alt="GENMO comparison input 3" />
+            <img src="./static/images/paper/Fig9-3_genmo-comp.jpg" alt="GENMO comparison baseline 3" />
+            <img src="./static/images/paper/Fig9-3_ours-comp.jpg" alt="GENMO comparison ours 3" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig9-4_input-comp.jpg" alt="GENMO comparison input 4" />
+            <img src="./static/images/paper/Fig9-4_genmo-comp.jpg" alt="GENMO comparison baseline 4" />
+            <img src="./static/images/paper/Fig9-4_ours-comp.jpg" alt="GENMO comparison ours 4" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig9-5_input-comp.jpg" alt="GENMO comparison input 5" />
+            <img src="./static/images/paper/Fig9-5_genmo-comp.jpg" alt="GENMO comparison baseline 5" />
+            <img src="./static/images/paper/Fig9-5_ours-comp.jpg" alt="GENMO comparison ours 5" />
+          </div>
+          <div class="gallery-row">
+            <img src="./static/images/paper/Fig9-6_input-comp.jpg" alt="GENMO comparison input 6" />
+            <img src="./static/images/paper/Fig9-6_genmo-comp.jpg" alt="GENMO comparison baseline 6" />
+            <img src="./static/images/paper/Fig9-6_ours-comp.jpg" alt="GENMO comparison ours 6" />
+          </div>
+        </div>
+        <div class="figure-caption">
+          Additional body-pose recovery comparisons between our method and GENMO.
+        </div>
+      </div>
+    </section>
+
+    <section id="conclusion" class="section-card">
+      <h2>Conclusion and Limitations</h2>
+      <p>
+        We presented FactorizedHMR, a video HMR framework that uses an uncertainty-aware factorization: a deterministic stage estimates a stable torso-root anchor, and a probabilistic flow-matching stage completes ambiguity-prone non-torso articulation and world motion. This design, together with geometry-aware refinement and camera-aware synthetic supervision, improves reconstruction while preserving stability. Across camera-space and world-space benchmarks, FactorizedHMR remains strong against both deterministic and generative baselines and displays clear qualitative advantages in ambiguous scenes.
+      </p>
+      <p>
+        The current uncertainty partition between Stage 1 and Stage 2 is fixed, which can still fail under extreme truncation or rapid camera motion: if the Stage 1 structural anchor is biased, Stage 2 may inherit that error rather than correct it. In addition, probabilistic refinement increases inference cost, which limits practical deployment. Future work could make the factorization adaptive, improve sampling efficiency, and develop ambiguity-aware benchmarks for calibrated multi-hypothesis video HMR.
+      </p>
+      <div class="footer">
+        Project page content follows the wording and figure/table content from the paper sources in <code>docs/main.tex</code> and <code>docs/secs/*.tex</code>.
+      </div>
+    </section>
+  </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const syntheticVideos = document.querySelectorAll(".synthetic-media-grid video");
+
+      function playSyntheticVideos() {
+        syntheticVideos.forEach(function (video) {
+          video.muted = true;
+          const promise = video.play();
+          if (promise && typeof promise.catch === "function") {
+            promise.catch(function () {});
+          }
+        });
+      }
+
+      playSyntheticVideos();
+
+      document.addEventListener("visibilitychange", function () {
+        if (!document.hidden) {
+          playSyntheticVideos();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
