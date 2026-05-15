@@ -489,12 +489,28 @@
       <p class="lede">
         Human Mesh Recovery (HMR) is fundamentally ambiguous: under occlusion or weak depth cues, multiple 3D bodies can explain the same image evidence. Building on this observation, we propose <strong>FactorizedHMR</strong>, a two-stage framework that treats these two regimes differently.
       </p>
-      <div class="authors">Anonymous Authors</div>
-      <div class="affiliations">Anonymous Affiliation</div>
-      <div class="hero-links">
-        <a href="#method">Method Overview</a>
-        <a href="#results">Results Tables</a>
-        <a href="#appendix">Appendix Figures</a>
+      <div class="authors">
+        <!-- Replace with real authors -->
+        <a href="#" target="_blank" rel="noopener">Patrick Kwon</a>,
+        <a href="#" target="_blank" rel="noopener">Chen Chen</a>,
+      </div>
+
+      <div class="affiliations">
+        University of Central Florida
+      </div>
+      <div class="link-row">
+        <a class="pill-link" href="https://arxiv.org/pdf/2605.14854" target="_blank">
+          <span class="emoji">📄</span>
+          <span>Paper</span>
+        </a>
+        <a class="pill-link" href="" target="_blank">
+          <span class="emoji">🎥</span>
+          <span>Video</span>
+        </a>
+        <a class="pill-link" href="" target="_blank">
+          <span class="emoji">💻</span>
+          <span>Code</span>
+        </a>
       </div>
     </section>
 
@@ -1224,10 +1240,23 @@
       <p>
         The current uncertainty partition between Stage 1 and Stage 2 is fixed, which can still fail under extreme truncation or rapid camera motion: if the Stage 1 structural anchor is biased, Stage 2 may inherit that error rather than correct it. In addition, probabilistic refinement increases inference cost, which limits practical deployment. Future work could make the factorization adaptive, improve sampling efficiency, and develop ambiguity-aware benchmarks for calibrated multi-hypothesis video HMR.
       </p>
-      <div class="footer">
-        Project page content follows the wording and figure/table content from the paper sources in <code>docs/main.tex</code> and <code>docs/secs/*.tex</code>.
-      </div>
     </section>
+
+    <section id="citation" class="section-card">
+      <h2>Citation</h2>
+      <p>
+        If you find this work useful, please consider citing:
+      </p>
+      <pre><code>
+@article{Kwon2026FactorizedHMR,
+  title={FactorizedHMR: A Hybrid Framework for Video Human Mesh Recovery},
+  author={Patrick Kwon and Chen Chen},
+  journal={arXiv preprint arXiv:2605.14854},
+  year={2026}
+}
+      </code></pre>
+    </section>
+
   </main>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
