@@ -156,7 +156,7 @@ collections:
 announcements:
   enabled: true
   scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  limit: 1 # show the newest personal update on the front page
 
 latest_posts:
   enabled: true
@@ -283,7 +283,7 @@ display_categories: ["external-services"] # these categories will be displayed o
 
 scholar:
   last_name: [Kwon]
-  first_name: [Patrick]
+  first_name: [Patrick, Yong Jae]
 
   style: apa
   locale: en

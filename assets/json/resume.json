@@ -125,6 +125,13 @@
 
   "publications": [
     {
+      "name": "FactorizedHMR: A Hybrid Framework for Video Human Mesh Recovery",
+      "publisher": "NeurIPS 2026 (Poster)",
+      "releaseDate": "2026",
+      "url": "https://arxiv.org/abs/2605.14854",
+      "summary": "A hybrid video human mesh recovery framework that factorizes stable torso-root estimation and ambiguity-prone motion completion."
+    },
+    {
       "name": "Fall Risk and Gait Analysis in Community-Dwelling Older Adults using World-Spaced 3D Human Mesh Recovery",
       "publisher": "ArXiV",
       "releaseDate": "2026-04-15",
