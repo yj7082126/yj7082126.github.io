@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='assets/pdf/Patrick_CV.pdf'>[CV]</a> <a href='https://twitter.com/Patrick920728'>[Twitter]</a> <a href='https://www.linkedin.com/in/patrickkwon/'>[LinkedIn]</a> <a href='https://scholar.google.com/citations?user=XRKA-DkAAAAJ&hl=en'>[Google Scholar]</a> <a href='https://github.com/yj7082126'>[GitHub]</a>
+subtitle: Deep Learning Researcher · Controllable Generative AI · Human &amp; Scene Understanding<br><a href='assets/pdf/Patrick_CV.pdf'>[CV]</a> <a href='https://twitter.com/Patrick920728'>[Twitter]</a> <a href='https://www.linkedin.com/in/patrickkwon/'>[LinkedIn]</a> <a href='https://scholar.google.com/citations?user=XRKA-DkAAAAJ&hl=en'>[Google Scholar]</a> <a href='https://github.com/yj7082126'>[GitHub]</a>
 
 profile:
   align: right
@@ -15,8 +15,6 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
  
-I am a Ph.D. student in Computer Science at the [University of Central Florida](https://www.ucf.edu/) and a researcher at the [Center for Research in Computer Vision](https://www.crcv.ucf.edu/), advised by [Dr. Chen Chen](https://www.crcv.ucf.edu/chenchen/index.html).
+I am a second-year computer science Ph.D. student at UCF, advised by Dr. Chen Chen. My publications include first-author work at NeurIPS, CVPR, WACV, and ICCV, and equal-contribution work on CHUPA at ICCV.
 
-I develop generative learning systems toward **scalable world models** that understand people, objects, scenes, and their interactions. My research combines generative backbones with human and scene understanding to model 3D structure, motion, affordances, and controllable visual worlds.
-
-My work has been published at **NeurIPS, CVPR, WACV, ECCV, and ICCV**, including first- and equal-contribution research on human motion, controllable generation, 3D humans, and human-object interaction. Across academic and industry research, I have worked on problems spanning video human mesh recovery, story visualization, whole-body interaction synthesis, object affordance, and spatial navigation.
+I study how generative AI can understand people and their surroundings—and how we can use that understanding to control what it creates. My long-term goal is to build scalable world models on generative backbones: models grounded in human and scene understanding that can represent spatial relationships and predict how people, objects, and environments change over time.

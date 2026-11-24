@@ -1,9 +1,10 @@
 ---
 layout: page
 title: Seeing Your Way Indoors
-description: An indoor navigation system built on scene reconstruction and localization pipelines for spatially grounded perception.
+description: Combining scene reconstruction and localization to support indoor navigation.
+research_meta: "ByteDance PICO · 2026"
 importance: 6
 category: research
 ---
 
-Seeing Your Way Indoors connects reconstructed scene geometry with localization to support indoor spatial navigation.
+{{ page.research_meta }}

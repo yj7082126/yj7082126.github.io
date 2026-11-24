@@ -2,7 +2,7 @@
 layout: page
 title: projects
 permalink: /projects/
-description: Selected research on generative models, human and scene understanding, and spatial intelligence.
+description: Explore the research questions behind my publications and projects—from controlling visual generation to understanding people, objects, and 3D environments.
 nav: true
 nav_order: 3
 display_categories: [research]
@@ -10,6 +10,13 @@ horizontal: false
 ---
 
 <!-- pages/projects.md -->
+## Research themes
+
+- **Controllable Generative AI:** How can we control pose, identity, layout, and interaction while preserving the expressive power of generative models?
+- **Human Understanding and Generation:** How can AI reconstruct and generate people in 3D, understand their motion, and model how they interact with objects?
+- **Scene Understanding and Generation:** How can AI recover the structure of an environment and use it to support spatial reasoning and generation? This emerging direction includes VGGT-ForAll (ongoing, unpublished research).
+- **Augmented Reality:** How can spatial computing help people perform tasks and interact with their surroundings?
+
 <div class="projects">
 {% if site.enable_project_categories and page.display_categories %}
   <!-- Display categorized projects -->

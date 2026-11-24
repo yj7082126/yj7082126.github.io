@@ -1,10 +1,11 @@
 ---
 layout: page
 title: LPMM
-description: A landmark-parameter morphable model for intuitive semantic pose control in neural talking-head generation.
+description: Making the pose of generated talking heads easier to control through interpretable facial landmarks.
+research_meta: "arXiv 2023 · Equal contribution"
 img: assets/img/publication_preview/teaser_v3_wocolor.png
 importance: 8
 category: research
 ---
 
-LPMM provides interpretable pose controls for manipulating neural talking-head generation through facial landmarks.
+{{ page.research_meta }}
